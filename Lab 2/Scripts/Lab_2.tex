@@ -1,0 +1,2289 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Lab 2 - R Basics, Data Types, Data Manipulation},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Lab 2 - R Basics, Data Types, Data Manipulation}
+\author{}
+\date{\vspace{-2.5em}2026-01-16}
+
+\begin{document}
+\maketitle
+
+\subsection{Learning Objectives}\label{learning-objectives}
+
+After completing this lab, you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Write clear, well-commented code
+\item
+  Understand and use variables to store data
+\item
+  Call functions and provide arguments
+\item
+  Work with different data types (numeric, character, logical)
+\item
+  Create and manipulate vectors and data frames
+\item
+  Install and load R packages
+\end{enumerate}
+
+\subsection{How to Use This Script}\label{how-to-use-this-script}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read through the explanatory text
+\item
+  Run each code block one at a time (click the green play button or
+  press Ctrl+Enter / Cmd+Enter)
+\item
+  Observe what happens in the output below each chunk
+\item
+  Complete the exercises marked ``EXERCISE''
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 1: Comments - Documenting Your
+Code}\label{part-1-comments---documenting-your-code}
+
+Comments start with the \texttt{\#} symbol. R ignores everything after
+\texttt{\#} on a line.
+
+\textbf{Why use comments?}
+
+\begin{itemize}
+\tightlist
+\item
+  Explain what your code does (for yourself and others)
+\item
+  Leave notes for future reference
+\item
+  Temporarily disable code without deleting it
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Bad comment:}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{5}  \CommentTok{\# set n to 5}
+
+\CommentTok{\# Good comment:}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{5}  \CommentTok{\# set sample size }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 2: Variables - Storing
+Information}\label{part-2-variables---storing-information}
+
+A \textbf{variable} is a labeled container that holds a value. Use
+\texttt{\textless{}-} (assignment arrow) to store a value in a variable.
+Keyboard shortcut: Alt and - (Windows) or Option and - (Mac).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{30}
+\NormalTok{temperature\_celsius }\OtherTok{\textless{}{-}} \FloatTok{22.5}
+\NormalTok{species\_name }\OtherTok{\textless{}{-}} \StringTok{"Carcharhinus melanopterus"}
+\end{Highlighting}
+\end{Shaded}
+
+To see what's stored in a variable, just type its name:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 30
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temperature\_celsius}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 22.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{species\_name}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Carcharhinus melanopterus"
+\end{verbatim}
+
+You can use variables in calculations and store the output in a new
+variable name:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temperature\_fahrenheit }\OtherTok{\textless{}{-}}\NormalTok{ (temperature\_celsius }\SpecialCharTok{*} \DecValTok{9}\SpecialCharTok{/}\DecValTok{5}\NormalTok{) }\SpecialCharTok{+} \DecValTok{32}
+\NormalTok{temperature\_fahrenheit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 72.5
+\end{verbatim}
+
+Variables can be updated - this is a common source of error so keep good
+track:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{50}
+\NormalTok{sample\_size}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 50
+\end{verbatim}
+
+Finally, take a look at your Environment pane to the right to see what
+variables you have defined.
+
+\subsubsection{Naming Rules for
+Variables}\label{naming-rules-for-variables}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Can contain letters, numbers, underscores (\texttt{\_}), and periods
+  (\texttt{.})
+\item
+  Must START with a letter (or a period)
+\item
+  Case-sensitive: ``Species'' and ``species'' are different!
+\item
+  Cannot use reserved words (like: if, else, for, TRUE, FALSE)
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Good variable names:}
+\NormalTok{body\_mass\_kg }\OtherTok{\textless{}{-}} \FloatTok{1.2}
+\NormalTok{num\_observations }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{is\_endangered }\OtherTok{\textless{}{-}} \ConstantTok{TRUE}
+
+\CommentTok{\# Avoid these:}
+\CommentTok{\# x \textless{}{-} 5           \# Not descriptive}
+\CommentTok{\# 2nd\_sample \textless{}{-} 10 \# Can\textquotesingle{}t start with a number}
+\CommentTok{\# my{-}data \textless{}{-} 5     \# Hyphens not allowed (use underscores)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{EXERCISE}\label{exercise}
+
+Create a variable called \texttt{bird\_wingspan\_cm} and assign it a
+value of 105. Then calculate the wingspan in meters and store it in
+\texttt{bird\_wingspan\_m}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Your code here:}
+\NormalTok{bird\_wingspan\_cm }\OtherTok{\textless{}{-}} \DecValTok{105}
+\NormalTok{bird\_wingspan\_m }\OtherTok{\textless{}{-}}\NormalTok{ bird\_wingspan\_cm}\SpecialCharTok{/}\DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 3: Data Types}\label{part-3-data-types}
+
+R works with several fundamental data types. When you store data in a
+variable, R recognizes it as one of several types.
+
+\subsection{1. NUMERIC - Numbers (integers and
+decimals)}\label{numeric---numbers-integers-and-decimals}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{population\_size }\OtherTok{\textless{}{-}} \DecValTok{1500}      \CommentTok{\# integer}
+\NormalTok{average\_weight }\OtherTok{\textless{}{-}} \FloatTok{2.45}       \CommentTok{\# decimal (called "double")}
+\NormalTok{temperature }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\FloatTok{5.2}          \CommentTok{\# negative numbers work too}
+\NormalTok{scientific }\OtherTok{\textless{}{-}} \FloatTok{6.022e23}       \CommentTok{\# scientific notation }
+
+\CommentTok{\# Check the type with the class function:}
+\FunctionTok{class}\NormalTok{(population\_size)  }\CommentTok{\# "numeric"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "numeric"
+\end{verbatim}
+
+\subsection{OPERATIONS WITH NUMERIC DATA
+TYPES}\label{operations-with-numeric-data-types}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \SpecialCharTok{+} \DecValTok{1}   \CommentTok{\# Addition}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \SpecialCharTok{{-}} \DecValTok{1}   \CommentTok{\# Subtraction }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \SpecialCharTok{*} \DecValTok{1}   \CommentTok{\# Multiplication}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \SpecialCharTok{/} \DecValTok{1}   \CommentTok{\# Division}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \SpecialCharTok{\^{}} \DecValTok{2}   \CommentTok{\# Exponentiation}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{7} \SpecialCharTok{\%\%} \DecValTok{2}  \CommentTok{\# Modulo {-} remainder after division}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{7} \SpecialCharTok{\%/\%} \DecValTok{2} \CommentTok{\# Integer division}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\subsection{2. CHARACTER - Text (also called
+``strings'')}\label{character---text-also-called-strings}
+
+Always use quotes (single or double).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{genus }\OtherTok{\textless{}{-}} \StringTok{"Carcharhinus"}
+\NormalTok{species }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}melanopterus\textquotesingle{}}
+\NormalTok{full\_name }\OtherTok{\textless{}{-}} \StringTok{"Carcharhinus melanopterus"}
+\NormalTok{full\_name2 }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(genus, species)}
+\NormalTok{full\_name2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Carcharhinus melanopterus"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check the type:}
+\FunctionTok{class}\NormalTok{(genus)  }\CommentTok{\# "character"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\textbf{IMPORTANT:} Numbers in quotes are TEXT, not numbers!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_id }\OtherTok{\textless{}{-}} \StringTok{"42"} \CommentTok{\#numbers in quotations are characters"}
+\FunctionTok{class}\NormalTok{(sample\_id)  }\CommentTok{\# "character" {-} we can\textquotesingle{}t perform operations with the variable sample\_id}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#sample\_id + 1  \# generates an error because we\textquotesingle{}re trying to add an integer and a character}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{3. LOGICAL - TRUE or FALSE (Boolean
+values)}\label{logical---true-or-false-boolean-values}
+
+Used for yes/no questions and conditions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{is\_mammal }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}
+\NormalTok{has\_wings }\OtherTok{\textless{}{-}} \ConstantTok{TRUE}
+\NormalTok{is\_extinct }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}
+
+\FunctionTok{class}\NormalTok{(is\_mammal)  }\CommentTok{\# "logical"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+Logical values come from comparisons:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5} \SpecialCharTok{\textgreater{}} \DecValTok{3}         \CommentTok{\# TRUE (5 is greater than 3) \#asking R if 5 is greater than 3, will respond "5"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5} \SpecialCharTok{\textless{}} \DecValTok{3}         \CommentTok{\# FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5} \SpecialCharTok{==} \DecValTok{5} \CommentTok{\# TRUE (note: double equals for comparison)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5} \SpecialCharTok{!=} \DecValTok{3}        \CommentTok{\# TRUE (5 is NOT equal to 3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{10} \SpecialCharTok{\textgreater{}=} \DecValTok{10}      \CommentTok{\# TRUE (greater than OR equal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{10} \SpecialCharTok{\textless{}=} \DecValTok{5}       \CommentTok{\# FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+Logical operators:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{TRUE} \SpecialCharTok{\&} \ConstantTok{TRUE}   \CommentTok{\# AND: both must be true {-}\textgreater{} TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{TRUE} \SpecialCharTok{\&} \ConstantTok{FALSE}  \CommentTok{\# {-}\textgreater{} FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ConstantTok{TRUE} \SpecialCharTok{|} \ConstantTok{FALSE}  \CommentTok{\# OR: at least one must be true {-}\textgreater{} TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialCharTok{!}\ConstantTok{TRUE}         \CommentTok{\# NOT: flips the value {-}\textgreater{} FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{is\_mammal }\OtherTok{\textless{}{-}} \ConstantTok{TRUE}
+\NormalTok{can\_fly }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}
+\NormalTok{is\_mammal }\SpecialCharTok{\&}\NormalTok{ can\_fly }\CommentTok{\#cannot be a mammal,, and fly, these values were prev assigned }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{is\_mammal }\SpecialCharTok{|}\NormalTok{ can\_fly}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\subsection{4. SPECIAL VALUES}\label{special-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# NA {-} "Not Available" (missing data {-} VERY common in biology!)}
+\NormalTok{weight }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\FunctionTok{is.na}\NormalTok{(weight)  }\CommentTok{\# TRUE {-} check if something is NA}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# NULL {-} empty (no value at all)}
+\NormalTok{empty }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\FunctionTok{is.null}\NormalTok{(empty)  }\CommentTok{\# TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# NaN {-} "Not a Number" (undefined mathematical result)}
+\DecValTok{0}\SpecialCharTok{/}\DecValTok{0}  \CommentTok{\# NaN}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NaN
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Inf {-} Infinity}
+\DecValTok{1}\SpecialCharTok{/}\DecValTok{0}   \CommentTok{\# Inf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Inf
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\SpecialCharTok{{-}}\DecValTok{1}\SpecialCharTok{/}\DecValTok{0}  \CommentTok{\# {-}Inf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -Inf
+\end{verbatim}
+
+\subsection{Type Conversion}\label{type-conversion}
+
+Sometimes you need to convert between types:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Text to number:}
+\FunctionTok{as.numeric}\NormalTok{(}\StringTok{"42"}\NormalTok{)     }\CommentTok{\# 42}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 42
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Number to text:}
+\FunctionTok{as.character}\NormalTok{(}\DecValTok{42}\NormalTok{)     }\CommentTok{\# "42"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "42"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# To logical:}
+\FunctionTok{as.logical}\NormalTok{(}\DecValTok{1}\NormalTok{)        }\CommentTok{\# TRUE (any non{-}zero is TRUE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{as.logical}\NormalTok{(}\DecValTok{0}\NormalTok{)        }\CommentTok{\# FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Invalid conversions give NA:}
+\FunctionTok{as.numeric}\NormalTok{(}\StringTok{"hello"}\NormalTok{)  }\CommentTok{\# NA (with a warning)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\subsubsection{EXERCISE}\label{exercise-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a variable for your favorite animal's scientific name
+  (character)
+\item
+  Create a variable for its average lifespan in years (numeric)
+\item
+  Create a logical variable indicating whether it's extinct or extant
+\item
+  Check the class of each variable
+\item
+  Convert your numeric variable to a character
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Your code here:}
+\NormalTok{cat\_scientific\_name }\OtherTok{\textless{}{-}} \StringTok{"Felis catus"}
+\NormalTok{cat\_ave\_lifespan\_years }\OtherTok{\textless{}{-}} \DecValTok{20} 
+\NormalTok{is\_cat\_extinct }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}
+
+\FunctionTok{class}\NormalTok{(cat\_scientific\_name)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(cat\_ave\_lifespan\_years)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(is\_cat\_extinct)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "logical"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ave\_lifespan }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(cat\_ave\_lifespan\_years)}
+\FunctionTok{is.character}\NormalTok{(ave\_lifespan)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 4: Functions}\label{part-4-functions}
+
+A \textbf{function} is a command that performs a specific task - it
+often streamlines repetitive or complex tasks.
+
+Anatomy of a function call:
+\texttt{function\_name(argument1,\ argument2,\ ...)}
+
+\textbf{Arguments} (or parameters) are the inputs you give to a
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example: the sqrt() function calculates square roots}
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{16}\NormalTok{)      }\CommentTok{\# Returns 4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)       }\CommentTok{\# Returns 1.414...}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.414214
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example: the round() function rounds numbers}
+\FunctionTok{round}\NormalTok{(}\FloatTok{3.14159}\NormalTok{)           }\CommentTok{\# Returns 3 (default: 0 decimal places)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FloatTok{3.14159}\NormalTok{, }\AttributeTok{digits=}\DecValTok{2}\NormalTok{) }\CommentTok{\# Returns 3.14 (2 decimal places)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FloatTok{3.14159}\NormalTok{, }\DecValTok{2}\NormalTok{)        }\CommentTok{\# Same thing (positional argument)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example: the paste() function combines text}
+\FunctionTok{paste}\NormalTok{(}\StringTok{"Hello"}\NormalTok{, }\StringTok{"World"}\NormalTok{)                    }\CommentTok{\# "Hello World"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Hello World"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste}\NormalTok{(}\StringTok{"Sample"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{sep=}\StringTok{"\_"}\NormalTok{)                }\CommentTok{\# "Sample\_1"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Sample_1"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\AttributeTok{sep=}\StringTok{"{-}"}\NormalTok{)              }\CommentTok{\# "A{-}B{-}C"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "A-B-C"
+\end{verbatim}
+
+\subsection{Getting Help}\label{getting-help}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?sqrt              }\CommentTok{\# Help page for sqrt function}
+\FunctionTok{help}\NormalTok{(round)        }\CommentTok{\# Same as ?round}
+\end{Highlighting}
+\end{Shaded}
+
+Google is your friend: ``R how to calculate standard deviation''
+
+\subsection{Useful Built-in Functions}\label{useful-built-in-functions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Math functions:}
+\FunctionTok{abs}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{)            }\CommentTok{\# Absolute value: 5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{16}\NormalTok{)           }\CommentTok{\# Square root: 4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(}\DecValTok{10}\NormalTok{)            }\CommentTok{\# Natural log: 2.303}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.302585
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log10}\NormalTok{(}\DecValTok{100}\NormalTok{)         }\CommentTok{\# Log base 10: 2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(}\DecValTok{1}\NormalTok{)             }\CommentTok{\# e\^{}1: 2.718}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.718282
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ceiling}\NormalTok{(}\FloatTok{3.2}\NormalTok{)       }\CommentTok{\# Round up: 4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{floor}\NormalTok{(}\FloatTok{3.9}\NormalTok{)         }\CommentTok{\# Round down: 3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Character functions:}
+\FunctionTok{nchar}\NormalTok{(}\StringTok{"Biology"}\NormalTok{)           }\CommentTok{\# Number of characters: 7}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{toupper}\NormalTok{(}\StringTok{"hello"}\NormalTok{)           }\CommentTok{\# "HELLO"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "HELLO"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tolower}\NormalTok{(}\StringTok{"WORLD"}\NormalTok{)           }\CommentTok{\# "world"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "world"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{substr}\NormalTok{(}\StringTok{"Accipiter"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)  }\CommentTok{\# Extract characters: "Acc"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Acc"
+\end{verbatim}
+
+\subsubsection{EXERCISE}\label{exercise-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use \texttt{sqrt()} to calculate the square root of 144
+\item
+  Use \texttt{round()} to round 17.389 to 1 decimal place
+\item
+  Use \texttt{paste()} to combine your first and last name
+\item
+  Use \texttt{nchar()} to count the letters in ``Blacktip reef shark''
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Your code here:}
+\FunctionTok{sqrt}\NormalTok{(}\DecValTok{144}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{round}\NormalTok{(}\FloatTok{17.389}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 17.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste}\NormalTok{(}\StringTok{"Tabitha"}\NormalTok{, }\StringTok{"Hafenbrak"}\NormalTok{, }\AttributeTok{sep=}\StringTok{"\_"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Tabitha_Hafenbrak"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nchar}\NormalTok{(}\StringTok{"Blacktip reef shark"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 5: Vectors}\label{part-5-vectors}
+
+A \textbf{vector} is a sequence of values of the SAME type. It's the
+fundamental data structure in R.
+
+\subsection{Creating Vectors}\label{creating-vectors}
+
+Use \texttt{c()} - which stands for ``combine'' or ``concatenate''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Numeric vector (e.g., body masses of 5 birds in grams):}
+\NormalTok{body\_mass }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1200}\NormalTok{, }\DecValTok{1350}\NormalTok{, }\DecValTok{1150}\NormalTok{, }\DecValTok{1425}\NormalTok{, }\DecValTok{1275}\NormalTok{)}
+\NormalTok{body\_mass}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1200 1350 1150 1425 1275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Character vector (e.g., species names):}
+\NormalTok{species }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Goshawk"}\NormalTok{, }\StringTok{"Sparrowhawk"}\NormalTok{, }\StringTok{"Buzzard"}\NormalTok{, }\StringTok{"Kestrel"}\NormalTok{)}
+\NormalTok{species}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Goshawk"     "Sparrowhawk" "Buzzard"     "Kestrel"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Logical vector:}
+\NormalTok{is\_raptor }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{is\_raptor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE TRUE TRUE TRUE
+\end{verbatim}
+
+\subsection{Shortcuts for Creating
+Sequences}\label{shortcuts-for-creating-sequences}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# The colon operator for integer sequences:}
+\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}              \CommentTok{\# 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# seq() for more control:}
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from=}\DecValTok{0}\NormalTok{, }\AttributeTok{to=}\DecValTok{100}\NormalTok{, }\AttributeTok{by=}\DecValTok{10}\NormalTok{)      }\CommentTok{\# 0, 10, 20, ..., 100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]   0  10  20  30  40  50  60  70  80  90 100
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{seq}\NormalTok{(}\AttributeTok{from=}\DecValTok{0}\NormalTok{, }\AttributeTok{to=}\DecValTok{1}\NormalTok{, }\AttributeTok{length.out=}\DecValTok{5}\NormalTok{) }\CommentTok{\# 5 evenly spaced values}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.00 0.25 0.50 0.75 1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# rep() to repeat values:}
+\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{times=}\DecValTok{5}\NormalTok{)                 }\CommentTok{\# 0, 0, 0, 0, 0}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0 0 0 0 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{), }\AttributeTok{times=}\DecValTok{3}\NormalTok{)       }\CommentTok{\# "A", "B", "A", "B", "A", "B"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "A" "B" "A" "B" "A" "B"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rep}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\StringTok{"B"}\NormalTok{), }\AttributeTok{each=}\DecValTok{3}\NormalTok{)        }\CommentTok{\# "A", "A", "A", "B", "B", "B"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "A" "A" "A" "B" "B" "B"
+\end{verbatim}
+
+\subsection{Vector Properties}\label{vector-properties}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{length}\NormalTok{(body\_mass)     }\CommentTok{\# How many elements? 5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{class}\NormalTok{(body\_mass)      }\CommentTok{\# What type? "numeric"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(body\_mass)    }\CommentTok{\# Quick statistical summary}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1150    1200    1275    1280    1350    1425
+\end{verbatim}
+
+\subsection{Accessing Vector Elements
+(Indexing)}\label{accessing-vector-elements-indexing}
+
+SUPER IMPORTANT!!
+
+R uses 1-based indexing (first element is position 1). For Python users
+- Python uses 0-based, so the first element is position 0.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass[}\DecValTok{1}\NormalTok{]          }\CommentTok{\# First element: 1200}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1200
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass[}\DecValTok{3}\NormalTok{]          }\CommentTok{\# Third element: 1150}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1150
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{5}\NormalTok{)]   }\CommentTok{\# Elements 1, 3, and 5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1200 1150 1275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Negative indices EXCLUDE elements:}
+\NormalTok{body\_mass[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]         }\CommentTok{\# Everything except first element}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1350 1150 1425 1275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)]    }\CommentTok{\# Everything except elements 1 and 2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1150 1425 1275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass[}\FunctionTok{length}\NormalTok{(body\_mass)] }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get a range:}
+\NormalTok{body\_mass[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{]        }\CommentTok{\# Elements 2 through 4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1350 1150 1425
+\end{verbatim}
+
+\subsection{Named Vectors}\label{named-vectors}
+
+Give names to elements for easier access:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wing\_length }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{goshawk=}\DecValTok{58}\NormalTok{, }\AttributeTok{sparrowhawk=}\DecValTok{32}\NormalTok{, }\AttributeTok{buzzard=}\DecValTok{52}\NormalTok{)}
+\NormalTok{wing\_length}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     goshawk sparrowhawk     buzzard 
+##          58          32          52
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wing\_length[}\StringTok{"goshawk"}\NormalTok{]              }\CommentTok{\# Access by name: 58}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## goshawk 
+##      58
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wing\_length[}\FunctionTok{c}\NormalTok{(}\StringTok{"goshawk"}\NormalTok{, }\StringTok{"buzzard"}\NormalTok{)] }\CommentTok{\# Multiple names}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## goshawk buzzard 
+##      58      52
+\end{verbatim}
+
+\subsection{Logical Indexing
+(Filtering)}\label{logical-indexing-filtering}
+
+Select elements based on conditions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass                   }\CommentTok{\# 1200, 1350, 1150, 1425, 1275}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1200 1350 1150 1425 1275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass }\SpecialCharTok{\textgreater{}} \DecValTok{1300}            \CommentTok{\# FALSE, TRUE, FALSE, TRUE, FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE  TRUE FALSE  TRUE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass[body\_mass }\SpecialCharTok{\textgreater{}} \DecValTok{1300}\NormalTok{] }\CommentTok{\# Only values \textgreater{} 1300: 1350, 1425}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1350 1425
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Which birds are above average weight?}
+\NormalTok{mean\_mass }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(body\_mass)}
+\NormalTok{body\_mass[body\_mass }\SpecialCharTok{\textgreater{}}\NormalTok{ mean\_mass]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1350 1425
+\end{verbatim}
+
+\subsection{Vectorized Operations}\label{vectorized-operations}
+
+Operations apply to ALL elements automatically:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{body\_mass\_kg }\OtherTok{\textless{}{-}}\NormalTok{ body\_mass }\SpecialCharTok{/} \DecValTok{1000}     \CommentTok{\# Convert all to kg}
+\NormalTok{body\_mass\_kg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.200 1.350 1.150 1.425 1.275
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Element{-}wise operations between vectors:}
+\NormalTok{length\_cm }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{55}\NormalTok{, }\DecValTok{35}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{45}\NormalTok{)}
+\NormalTok{width\_cm }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{area }\OtherTok{\textless{}{-}}\NormalTok{ length\_cm }\SpecialCharTok{*}\NormalTok{ width\_cm         }\CommentTok{\# Multiply corresponding elements}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{EXERCISE}\label{exercise-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a vector called \texttt{temps} with these daily temperatures:
+  18.5, 20.2, 19.8, 22.1, 21.5, 19.0, 17.8
+\item
+  Calculate the mean temperature
+\item
+  Find which days were above 20 degrees
+\item
+  What was the temperature range (max - min)?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Your code here:}
+\NormalTok{temps }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{( }\FloatTok{18.5}\NormalTok{, }\FloatTok{20.2}\NormalTok{, }\FloatTok{19.8}\NormalTok{, }\FloatTok{22.1}\NormalTok{, }\FloatTok{21.5}\NormalTok{, }\FloatTok{19.0}\NormalTok{, }\FloatTok{17.8}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(temps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19.84286
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{which}\NormalTok{(temps }\SpecialCharTok{\textgreater{}} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 4 5
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 6: Data Frames}\label{part-6-data-frames}
+
+A \textbf{data frame} is like a spreadsheet:
+
+\begin{itemize}
+\tightlist
+\item
+  Rows are observations (e.g., individual birds)
+\item
+  Columns are variables (e.g., species, weight, wing\_length)
+\item
+  Each column is a vector (so all values in a column are the same type)
+\item
+  Different columns can have different types
+\end{itemize}
+
+\subsection{Creating a Data Frame}\label{creating-a-data-frame}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"Goshawk"}\NormalTok{, }\StringTok{"Sparrowhawk"}\NormalTok{, }\StringTok{"Buzzard"}\NormalTok{, }\StringTok{"Kestrel"}\NormalTok{, }\StringTok{"Peregrine"}\NormalTok{),}
+  \AttributeTok{body\_mass\_g =} \FunctionTok{c}\NormalTok{(}\DecValTok{1200}\NormalTok{, }\DecValTok{250}\NormalTok{, }\DecValTok{900}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{750}\NormalTok{),}
+  \AttributeTok{wing\_span\_cm =} \FunctionTok{c}\NormalTok{(}\DecValTok{115}\NormalTok{, }\DecValTok{65}\NormalTok{, }\DecValTok{120}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{100}\NormalTok{),}
+  \AttributeTok{is\_migratory =} \FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# View the data frame:}
+\NormalTok{birds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory
+## 1     Goshawk        1200          115        FALSE
+## 2 Sparrowhawk         250           65        FALSE
+## 3     Buzzard         900          120         TRUE
+## 4     Kestrel         200           75         TRUE
+## 5   Peregrine         750          100         TRUE
+\end{verbatim}
+
+For large datasets, use:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(birds, }\DecValTok{3}\NormalTok{)      }\CommentTok{\# First 3 rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory
+## 1     Goshawk        1200          115        FALSE
+## 2 Sparrowhawk         250           65        FALSE
+## 3     Buzzard         900          120         TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tail}\NormalTok{(birds, }\DecValTok{2}\NormalTok{)      }\CommentTok{\# Last 2 rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     species body_mass_g wing_span_cm is_migratory
+## 4   Kestrel         200           75         TRUE
+## 5 Peregrine         750          100         TRUE
+\end{verbatim}
+
+\subsection{Exploring Data Frame
+Structure}\label{exploring-data-frame-structure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(birds)         }\CommentTok{\# Number of rows: 5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ncol}\NormalTok{(birds)         }\CommentTok{\# Number of columns: 4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(birds)          }\CommentTok{\# Both: 5 4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(birds)        }\CommentTok{\# Column names}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "species"      "body_mass_g"  "wing_span_cm" "is_migratory"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(birds)     }\CommentTok{\# Same as names()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "species"      "body_mass_g"  "wing_span_cm" "is_migratory"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(birds)          }\CommentTok{\# Structure {-} shows types of each column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    5 obs. of  4 variables:
+##  $ species     : chr  "Goshawk" "Sparrowhawk" "Buzzard" "Kestrel" ...
+##  $ body_mass_g : num  1200 250 900 200 750
+##  $ wing_span_cm: num  115 65 120 75 100
+##  $ is_migratory: logi  FALSE FALSE TRUE TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(birds)      }\CommentTok{\# Statistical summary of each column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    species           body_mass_g    wing_span_cm is_migratory   
+##  Length:5           Min.   : 200   Min.   : 65   Mode :logical  
+##  Class :character   1st Qu.: 250   1st Qu.: 75   FALSE:2        
+##  Mode  :character   Median : 750   Median :100   TRUE :3        
+##                     Mean   : 660   Mean   : 95                  
+##                     3rd Qu.: 900   3rd Qu.:115                  
+##                     Max.   :1200   Max.   :120
+\end{verbatim}
+
+\subsection{Accessing Columns}\label{accessing-columns}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Method 1: $ notation (most common)}
+\NormalTok{birds}\SpecialCharTok{$}\NormalTok{species           }\CommentTok{\# Returns species column as a vector}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Goshawk"     "Sparrowhawk" "Buzzard"     "Kestrel"     "Peregrine"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#$ references a column in a dataframe}
+\NormalTok{birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g      }\CommentTok{\# Returns body\_mass\_g column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1200  250  900  200  750
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Method 2: Double brackets}
+\NormalTok{birds[[}\StringTok{"species"}\NormalTok{]]      }\CommentTok{\# Same result}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Goshawk"     "Sparrowhawk" "Buzzard"     "Kestrel"     "Peregrine"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Method 3: Single brackets (returns data frame)}
+\NormalTok{birds[, }\StringTok{"species"}\NormalTok{]      }\CommentTok{\# All rows, species column}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Goshawk"     "Sparrowhawk" "Buzzard"     "Kestrel"     "Peregrine"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds[, }\FunctionTok{c}\NormalTok{(}\StringTok{"species"}\NormalTok{, }\StringTok{"body\_mass\_g"}\NormalTok{)]  }\CommentTok{\# Multiple columns}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g
+## 1     Goshawk        1200
+## 2 Sparrowhawk         250
+## 3     Buzzard         900
+## 4     Kestrel         200
+## 5   Peregrine         750
+\end{verbatim}
+
+\subsection{Accessing Rows}\label{accessing-rows}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds[}\DecValTok{1}\NormalTok{, ]              }\CommentTok{\# First row (all columns)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   species body_mass_g wing_span_cm is_migratory
+## 1 Goshawk        1200          115        FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), ]        }\CommentTok{\# Rows 1 and 3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   species body_mass_g wing_span_cm is_migratory
+## 1 Goshawk        1200          115        FALSE
+## 3 Buzzard         900          120         TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, ]            }\CommentTok{\# Rows 1 through 3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory
+## 1     Goshawk        1200          115        FALSE
+## 2 Sparrowhawk         250           65        FALSE
+## 3     Buzzard         900          120         TRUE
+\end{verbatim}
+
+\subsection{Accessing Specific Cells}\label{accessing-specific-cells}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds[}\DecValTok{1}\NormalTok{, }\StringTok{"species"}\NormalTok{]              }\CommentTok{\# Row 1, species column: "Goshawk"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Goshawk"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds[}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{]                      }\CommentTok{\# Row 2, column 2: 250}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 250
+\end{verbatim}
+
+\subsection{Filtering Rows with
+Conditions}\label{filtering-rows-with-conditions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Birds heavier than 500g:}
+\NormalTok{birds[birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g }\SpecialCharTok{\textgreater{}} \DecValTok{500}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     species body_mass_g wing_span_cm is_migratory
+## 1   Goshawk        1200          115        FALSE
+## 3   Buzzard         900          120         TRUE
+## 5 Peregrine         750          100         TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Migratory birds only:}
+\NormalTok{birds[birds}\SpecialCharTok{$}\NormalTok{is\_migratory }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     species body_mass_g wing_span_cm is_migratory
+## 3   Buzzard         900          120         TRUE
+## 4   Kestrel         200           75         TRUE
+## 5 Peregrine         750          100         TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Or equivalently:}
+\NormalTok{birds[birds}\SpecialCharTok{$}\NormalTok{is\_migratory, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     species body_mass_g wing_span_cm is_migratory
+## 3   Buzzard         900          120         TRUE
+## 4   Kestrel         200           75         TRUE
+## 5 Peregrine         750          100         TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Multiple conditions (use \& for AND, | for OR):}
+\NormalTok{birds[birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g }\SpecialCharTok{\textgreater{}} \DecValTok{500} \SpecialCharTok{\&}\NormalTok{ birds}\SpecialCharTok{$}\NormalTok{is\_migratory }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     species body_mass_g wing_span_cm is_migratory
+## 3   Buzzard         900          120         TRUE
+## 5 Peregrine         750          100         TRUE
+\end{verbatim}
+
+\subsection{Adding New Columns}\label{adding-new-columns}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate body mass in kg:}
+\NormalTok{birds}\SpecialCharTok{$}\NormalTok{body\_mass\_kg }\OtherTok{\textless{}{-}}\NormalTok{ birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g }\SpecialCharTok{/} \DecValTok{1000}
+\NormalTok{birds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory body_mass_kg
+## 1     Goshawk        1200          115        FALSE         1.20
+## 2 Sparrowhawk         250           65        FALSE         0.25
+## 3     Buzzard         900          120         TRUE         0.90
+## 4     Kestrel         200           75         TRUE         0.20
+## 5   Peregrine         750          100         TRUE         0.75
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Add a categorical column:}
+\NormalTok{birds}\SpecialCharTok{$}\NormalTok{size\_category }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g }\SpecialCharTok{\textgreater{}} \DecValTok{500}\NormalTok{, }\StringTok{"Large"}\NormalTok{, }\StringTok{"Small"}\NormalTok{) }\CommentTok{\#ifelse(test, yes, no)}
+\NormalTok{birds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory body_mass_kg size_category
+## 1     Goshawk        1200          115        FALSE         1.20         Large
+## 2 Sparrowhawk         250           65        FALSE         0.25         Small
+## 3     Buzzard         900          120         TRUE         0.90         Large
+## 4     Kestrel         200           75         TRUE         0.20         Small
+## 5   Peregrine         750          100         TRUE         0.75         Large
+\end{verbatim}
+
+\subsection{Modifying Data}\label{modifying-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Change a single value:}
+\NormalTok{birds[}\DecValTok{1}\NormalTok{, }\StringTok{"body\_mass\_g"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1250}
+\NormalTok{birds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory body_mass_kg size_category
+## 1     Goshawk        1250          115        FALSE         1.20         Large
+## 2 Sparrowhawk         250           65        FALSE         0.25         Small
+## 3     Buzzard         900          120         TRUE         0.90         Large
+## 4     Kestrel         200           75         TRUE         0.20         Small
+## 5   Peregrine         750          100         TRUE         0.75         Large
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Update based on condition:}
+\NormalTok{birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g[birds}\SpecialCharTok{$}\NormalTok{species }\SpecialCharTok{==} \StringTok{"Goshawk"}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1300}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Sorting Data Frames}\label{sorting-data-frames}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sort by body mass (ascending):}
+\NormalTok{birds[}\FunctionTok{order}\NormalTok{(birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory body_mass_kg size_category
+## 4     Kestrel         200           75         TRUE         0.20         Small
+## 2 Sparrowhawk         250           65        FALSE         0.25         Small
+## 5   Peregrine         750          100         TRUE         0.75         Large
+## 3     Buzzard         900          120         TRUE         0.90         Large
+## 1     Goshawk        1300          115        FALSE         1.20         Large
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sort by body mass (descending):}
+\NormalTok{birds[}\FunctionTok{order}\NormalTok{(birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g, }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory body_mass_kg size_category
+## 1     Goshawk        1300          115        FALSE         1.20         Large
+## 3     Buzzard         900          120         TRUE         0.90         Large
+## 5   Peregrine         750          100         TRUE         0.75         Large
+## 2 Sparrowhawk         250           65        FALSE         0.25         Small
+## 4     Kestrel         200           75         TRUE         0.20         Small
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Or use negative for numeric columns:}
+\NormalTok{birds[}\FunctionTok{order}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{birds}\SpecialCharTok{$}\NormalTok{body\_mass\_g), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species body_mass_g wing_span_cm is_migratory body_mass_kg size_category
+## 1     Goshawk        1300          115        FALSE         1.20         Large
+## 3     Buzzard         900          120         TRUE         0.90         Large
+## 5   Peregrine         750          100         TRUE         0.75         Large
+## 2 Sparrowhawk         250           65        FALSE         0.25         Small
+## 4     Kestrel         200           75         TRUE         0.20         Small
+\end{verbatim}
+
+\subsubsection{EXERCISE}\label{exercise-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a data frame called \texttt{trees} with columns:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    species: ``Oak'', ``Maple'', ``Pine'', ``Birch''
+  \item
+    height\_m: 25, 20, 30, 18
+  \item
+    is\_evergreen: FALSE, FALSE, TRUE, FALSE
+  \end{itemize}
+\item
+  Add a new column \texttt{height\_ft} (height in feet = height\_m *
+  3.28)
+\item
+  Filter to show only trees taller than 20 meters
+\item
+  What is the average height of all trees in meters?
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Your code here:}
+\NormalTok{trees }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"oak"}\NormalTok{, }\StringTok{"maple"}\NormalTok{, }\StringTok{"pine"}\NormalTok{, }\StringTok{"birch"}\NormalTok{), }\AttributeTok{height\_m =}\FunctionTok{c}\NormalTok{(}\DecValTok{25}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{18}\NormalTok{), }\AttributeTok{is\_evergreen =} \FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{trees}\SpecialCharTok{$}\NormalTok{height\_ft }\OtherTok{\textless{}{-}}\NormalTok{ trees}\SpecialCharTok{$}\NormalTok{height\_m}\SpecialCharTok{*}\FloatTok{3.28}
+\FunctionTok{which}\NormalTok{(trees}\SpecialCharTok{$}\NormalTok{height\_m }\SpecialCharTok{\textgreater{}}\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 3
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 7: Handling Missing Data (NA
+Values)}\label{part-7-handling-missing-data-na-values}
+
+Real-world biological data almost ALWAYS has missing values, in R,
+missing values are represented as NA.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create data with missing values:}
+\NormalTok{measurements }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{sample\_id =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{,}
+  \AttributeTok{weight =} \FunctionTok{c}\NormalTok{(}\FloatTok{45.2}\NormalTok{, }\FloatTok{52.1}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{48.7}\NormalTok{, }\FloatTok{51.3}\NormalTok{, }\ConstantTok{NA}\NormalTok{),}
+  \AttributeTok{length =} \FunctionTok{c}\NormalTok{(}\FloatTok{12.5}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{14.2}\NormalTok{, }\FloatTok{13.8}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{15.1}\NormalTok{),}
+  \AttributeTok{status =} \FunctionTok{c}\NormalTok{(}\StringTok{"alive"}\NormalTok{, }\StringTok{"alive"}\NormalTok{, }\StringTok{"dead"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"alive"}\NormalTok{, }\StringTok{"dead"}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{measurements}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sample_id weight length status
+## 1         1   45.2   12.5  alive
+## 2         2   52.1     NA  alive
+## 3         3     NA   14.2   dead
+## 4         4   48.7   13.8   <NA>
+## 5         5   51.3     NA  alive
+## 6         6     NA   15.1   dead
+\end{verbatim}
+
+\subsection{Detecting Missing Values}\label{detecting-missing-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{is.na}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight)           }\CommentTok{\# TRUE/FALSE for each element}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] FALSE FALSE  TRUE FALSE FALSE  TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight))      }\CommentTok{\# Count NAs in weight: 2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(measurements))             }\CommentTok{\# Total NAs in whole data frame}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Which rows have complete data?}
+\FunctionTok{complete.cases}\NormalTok{(measurements)          }\CommentTok{\# TRUE/FALSE for each row}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  TRUE FALSE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+\subsection{NA in Calculations}\label{na-in-calculations}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight)             }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Solution: use na.rm = TRUE (remove NAs)}
+\FunctionTok{mean}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)   }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 49.325
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# This works for most statistical functions:}
+\FunctionTok{sum}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 197.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{length, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.080123
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{max}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 52.1
+\end{verbatim}
+
+\subsection{Removing Rows with Missing
+Values}\label{removing-rows-with-missing-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove rows with ANY missing values:}
+\NormalTok{measurements\_complete }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(measurements)}
+\NormalTok{measurements\_complete   }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sample_id weight length status
+## 1         1   45.2   12.5  alive
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove rows with NA in a specific column:}
+\NormalTok{measurements[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sample_id weight length status
+## 1         1   45.2   12.5  alive
+## 2         2   52.1     NA  alive
+## 4         4   48.7   13.8   <NA>
+## 5         5   51.3     NA  alive
+\end{verbatim}
+
+\subsection{Replacing Missing Values}\label{replacing-missing-values}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Replace NAs with a specific value:}
+\NormalTok{measurements}\SpecialCharTok{$}\NormalTok{weight[}\FunctionTok{is.na}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight)] }\OtherTok{\textless{}{-}} \DecValTok{0}
+
+\CommentTok{\# Replace with mean:}
+\CommentTok{\# First, let\textquotesingle{}s reset the data}
+\NormalTok{measurements}\SpecialCharTok{$}\NormalTok{weight }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{45.2}\NormalTok{, }\FloatTok{52.1}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\FloatTok{48.7}\NormalTok{, }\FloatTok{51.3}\NormalTok{, }\ConstantTok{NA}\NormalTok{)}
+
+\CommentTok{\# Replace NAs with the mean weight}
+\NormalTok{mean\_weight }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{measurements}\SpecialCharTok{$}\NormalTok{weight[}\FunctionTok{is.na}\NormalTok{(measurements}\SpecialCharTok{$}\NormalTok{weight)] }\OtherTok{\textless{}{-}}\NormalTok{ mean\_weight}
+\NormalTok{measurements}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   sample_id weight length status
+## 1         1 45.200   12.5  alive
+## 2         2 52.100     NA  alive
+## 3         3 49.325   14.2   dead
+## 4         4 48.700   13.8   <NA>
+## 5         5 51.300     NA  alive
+## 6         6 49.325   15.1   dead
+\end{verbatim}
+
+\subsubsection{EXERCISE}\label{exercise-5}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How many missing values are in the length column of measurements?
+\item
+  What is the median length (excluding NAs)?
+\item
+  Remove all rows with any missing values from measurements
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Your code here:}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{PART 8: Packages - Extending R's
+Capabilities}\label{part-8-packages---extending-rs-capabilities}
+
+R comes with many built-in functions, \textbf{packages} add many many
+more. Packages are collections of functions that other people have
+written made avialable to us.
+
+\subsection{Installing Packages}\label{installing-packages}
+
+You only need to install a package ONCE on your computer. Do this in the
+Console, not in your script:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)  }\CommentTok{\# For advanced plotting}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)    }\CommentTok{\# For data manipulation}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Loading Packages}\label{loading-packages}
+
+You need to load a package EACH TIME you start R. Put \texttt{library()}
+calls at the top of your script:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Checking Installed
+Packages}\label{checking-installed-packages}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{installed.packages}\NormalTok{()   }\CommentTok{\# Shows all installed packages}
+\end{Highlighting}
+\end{Shaded}
+
+\section{PART 9: Importing and Exporting
+Data}\label{part-9-importing-and-exporting-data}
+
+In real research, you'll read data from files, not type it in!
+
+\subsection{Setting Your Working
+Directory}\label{setting-your-working-directory}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# First, check where R is looking for files:}
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "/Users/tabi/Downloads/4th Year/Biologists Toolkit/BIOL3872/Lab 2/Scripts"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Change the working directory:}
+\FunctionTok{setwd}\NormalTok{(}\StringTok{"/path/to/your/folder"}\NormalTok{)}
+\CommentTok{\# Or use: Session → Set Working Directory → Choose Directory in RStudio}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Reading CSV Files}\label{reading-csv-files}
+
+CSV (Comma-Separated Values) is the most common format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Basic syntax:}
+\NormalTok{my\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"filename.csv"}\NormalTok{)}
+
+\CommentTok{\# With options:}
+\NormalTok{my\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"filename.csv"}\NormalTok{,}
+                    \AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{,              }\CommentTok{\# First row is column names}
+                    \AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}\NormalTok{,   }\CommentTok{\# Keep text as text}
+                    \AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"NA"}\NormalTok{, }\StringTok{"N/A"}\NormalTok{))  }\CommentTok{\# What counts as NA}
+\end{Highlighting}
+\end{Shaded}
+
+Let's create a sample file to practice:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{species =} \FunctionTok{c}\NormalTok{(}\StringTok{"Goshawk"}\NormalTok{, }\StringTok{"Sparrowhawk"}\NormalTok{, }\StringTok{"Buzzard"}\NormalTok{),}
+  \AttributeTok{count =} \FunctionTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{28}\NormalTok{),}
+  \AttributeTok{location =} \FunctionTok{c}\NormalTok{(}\StringTok{"Forest"}\NormalTok{, }\StringTok{"Garden"}\NormalTok{, }\StringTok{"Field"}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# Write to CSV:}
+\FunctionTok{write.csv}\NormalTok{(sample\_data, }\StringTok{"bird\_counts.csv"}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# Read it back:}
+\NormalTok{bird\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"bird\_counts.csv"}\NormalTok{)}
+\NormalTok{bird\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species count location
+## 1     Goshawk    15   Forest
+## 2 Sparrowhawk    42   Garden
+## 3     Buzzard    28    Field
+\end{verbatim}
+
+\subsection{Always Check Your Data After
+Importing}\label{always-check-your-data-after-importing}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(bird\_data)          }\CommentTok{\# First few rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       species count location
+## 1     Goshawk    15   Forest
+## 2 Sparrowhawk    42   Garden
+## 3     Buzzard    28    Field
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(bird\_data)           }\CommentTok{\# Structure}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    3 obs. of  3 variables:
+##  $ species : chr  "Goshawk" "Sparrowhawk" "Buzzard"
+##  $ count   : int  15 42 28
+##  $ location: chr  "Forest" "Garden" "Field"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(bird\_data)       }\CommentTok{\# Summary statistics}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    species              count         location        
+##  Length:3           Min.   :15.00   Length:3          
+##  Class :character   1st Qu.:21.50   Class :character  
+##  Mode  :character   Median :28.00   Mode  :character  
+##                     Mean   :28.33                     
+##                     3rd Qu.:35.00                     
+##                     Max.   :42.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(bird\_data)           }\CommentTok{\# Dimensions}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3 3
+\end{verbatim}
+
+\subsection{Now let's head to the
+assignment!}\label{now-lets-head-to-the-assignment}
+
+\end{document}
