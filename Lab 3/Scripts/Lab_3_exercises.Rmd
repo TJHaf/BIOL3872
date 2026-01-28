@@ -38,7 +38,7 @@ if (!require("knitr")) install.packages("knitr")
 ```
 
 ```{r packages}
->>>>>>> refs/remotes/origin/main
+#>> refs/remotes/origin/main
 
 # This is an all-in-one library of plotting tools which supports ggplot
 if (!require("tidyverse"))
@@ -50,19 +50,19 @@ if (!require("RColorBrewer"))
 
 # Organizing file structure (this sets working directory where script is located)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-<<<<<<< HEAD
+#<< HEAD
 
-If you set up a structure of weekly directories (e.g., Lab 3 folder containing: Scripts, Figures, Data) then the above line sets your working directory to save everything in "scripts", use "../" in each saving step to redirect objects/plots/data to the correct folder.
+#If you set up a structure of weekly directories (e.g., Lab 3 folder containing: Scripts, Figures, Data) then the above line sets your working directory to save everything in "scripts", use "../" in each saving step to redirect objects/plots/data to the correct folder.
 
-We will begin with rudimentary base R functions for data exploration, description and plotting.
+#We will begin with rudimentary base R functions for data exploration, description and plotting.
 
-Important steps: 1) Read data properly, 2) Preview data columns, rows, data types, missing information (e.g., NAs), 3) Visualize data to explore patterns and potential outliers.
+#Important steps: 1) Read data properly, 2) Preview data columns, rows, data types, missing information (e.g., NAs), 3) Visualize data to explore patterns and potential outliers.
 
 {r}
 # We will begin with built-in data sets from the R community (of which there are many)
 data("iris")
 
-This is a famous data set from R.A. Fisher1 recording functional attributes for three plant species
+#This is a famous data set from R.A. Fisher1 recording functional attributes for three plant species
 
 {r}
 ?iris
@@ -70,7 +70,7 @@ This is a famous data set from R.A. Fisher1 recording functional attributes for 
 
 
 {r}
-=======
+#=======
 ```
 
 \
@@ -95,7 +95,7 @@ This is a famous data set from R.A. Fisher^1^ recording functional attributes fo
 \
 
 ```{r}
->>>>>>> refs/remotes/origin/main
+#>>>>>>> refs/remotes/origin/main
 # How many observations (i.e., rows)?
 nrow(iris)
 
@@ -108,9 +108,9 @@ view(iris)
 # Can we preview this data?
 head(iris)
 tail(iris)
-<<<<<<< HEAD
+#<<<<<<< HEAD
 
-We can also index the data set to pull out specific information:
+#We can also index the data set to pull out specific information:
 
 {r}
 # by column name
@@ -119,7 +119,7 @@ iris$Species
 
 
 
-{r, include=FALSE}
+#{r, include=FALSE}
 
 #When knit, each of these are rather long
 
@@ -130,10 +130,10 @@ iris[1:2,]
 
 
 
-Some convenience functions to inspect aspects of a data frame.
+#Some convenience functions to inspect aspects of a data frame.
 
 {r}
-=======
+#=======
 ```
 
 \
@@ -162,7 +162,7 @@ iris[1:2,]
 Some convenience functions to inspect aspects of a data frame.
 
 ```{r}
->>>>>>> refs/remotes/origin/main
+#>>>>>>> refs/remotes/origin/main
 names(iris)
 rownames(iris)
 
@@ -172,11 +172,11 @@ str(iris)
 
 # What are the ordered levels to the factor column? Can we reorder things?
 levels(iris$Species)
-<<<<<<< HEAD
+#<<<<<<< HEAD
 
-Task 1
+#Task 1
 
-What are the exact measurements (Sepal.Length, Sepal.Width, Petal.Length, Petal.Width) of the first and last data entry? Store each answer as a vector named first and last.
+#What are the exact measurements (Sepal.Length, Sepal.Width, Petal.Length, Petal.Width) of the first and last data entry? Store each answer as a vector named first and last.
 
 {r}
 # YOUR CODE HERE
@@ -190,7 +190,7 @@ new_df <-cbind(iris$Sepal.Length, iris$Species)
 summary(iris)
 
 {r}
-=======
+#=======
 ```
 
 ::: {style="background-color: #44AA99; transparent; padding: 10px; border-radius: 2px;"}
@@ -212,12 +212,12 @@ summary(iris)
 ```
 
 ```{r}
->>>>>>> refs/remotes/origin/main
+#>>>>>>> refs/remotes/origin/main
 # The base R "plot" function will visualize the different relationships of these columns 
 plot(iris)
 
 # How can we modify plot specifics?
-<<<<<<< HEAD
+#<<<<<<< HEAD
 plot(iris, 
      col = "forestgreen", 
      pch = 19)
@@ -225,17 +225,17 @@ plot(iris,
 # Plotting one variable?
 plot(iris[,1])
 
-What about coloring by data frame categories?
+#What about coloring by data frame categories?
 
 {r}
 # per species
 plot(iris$Sepal.Length, col = iris$Species)
 
-Task 2
+#Task 2
 
-Investigate help (?) function for 'iris' and 'plot' to visualize the relationships for each species
+#Investigate help (?) function for 'iris' and 'plot' to visualize the relationships for each species
 
-Which species has (on average) the longest and widest petals? Store it as a character in your environment.
+#Which species has (on average) the longest and widest petals? Store it as a character in your environment.
 
 {r}
 # YOUR CODE HERE
@@ -253,8 +253,8 @@ plot(iris$Species, iris$Petal.Length)
 plot(iris$Species, iris$Petal.Width)
 #shows that petal width is longest for virginica
 
-Introduction to plotting
-=======
+#Introduction to plotting
+#=======
 
 # Plotting one variable?
 ```
@@ -263,7 +263,7 @@ What about coloring by data frame categories?
 
 ```{r}
 # per species
-plot(iris$Sepal.Length, col = iris$Species)
+plot(iris$Sepal.Length, col = iris$Species %>% )
 ```
 
 ::: {style="background-color: #44AA99; transparent; padding: 10px; border-radius: 2px;"}
@@ -419,30 +419,30 @@ hist(iris$Sepal.Length, col = "maroon", breaks = 30, xlab="Sepal Length (cm)", m
 # Note how sepal lengths are extracted for the virginica species only, using the same format as above.
 hist(iris$Sepal.Length[iris$Species == "virginica"], 
      col = "maroon", 
->>>>>>> refs/remotes/origin/main
+#>>>>>>> refs/remotes/origin/main
      breaks = 30, 
      xlab="Sepal Length (cm)", 
      main = "Iris virginica data",
      xlim = c(4, 9))
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
 
-Task 3
+#Task 3
 
-Visually (i.e., by inspecting the histogram), what type of distribution appears to describe the sepal width across the whole data set? What is the shape of the distribution for each species?
+#Visually (i.e., by inspecting the histogram), what type of distribution appears to describe the sepal width across the whole data set? What is the shape of the distribution for each species?
 
-B. Boxplots
+#B. Boxplots
 
-A boxplot (box and whisker plot) displays the five-number summary of a data set. The numbers are a summary which include the minimum, first quartile, median, third quartile, and maximum. In a boxplot, we draw a box from the first quartile to the third quartile. In base R, the function to make boxplots is boxplot():
+#A boxplot (box and whisker plot) displays the five-number summary of a data set. The numbers are a summary which include the minimum, first quartile, median, third quartile, and maximum. In a boxplot, we draw a box from the first quartile to the third quartile. In base R, the function to make boxplots is boxplot():
 
 {r}
 boxplot(iris, 
         ylab = "Centimeters", 
         xlab = "Variable")
 
-Here we can see that data summary by column, including points that are 1.5 * greater than the interquartile range (i.e., the box).
+#Here we can see that data summary by column, including points that are 1.5 * greater than the interquartile range (i.e., the box).
 
-We often inspect parts of our data for exploration and base R has several convienance functions for subsetting data, including subset:
+#We often inspect parts of our data for exploration and base R has several convienance functions for subsetting data, including subset:
 
 {r}
 =======
@@ -805,7 +805,7 @@ All the ggplot figures we have created have focused on customizing one panel wit
 {r}
 =======
 ```
-
+%>% 
 ### Faceting
 
 All the `ggplot` figures we have created have focused on customizing one panel with different group colors, lines, points, etc. We can also partition plots by some group by facets, these split one plot into multiple. Here we will use the `facet_wrap()` (check help for `facet_wrap`) function to separate out species:
