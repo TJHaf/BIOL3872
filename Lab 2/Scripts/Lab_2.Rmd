@@ -1,15 +1,12 @@
 ---
 title: "Lab 2 - R Basics, Data Types, Data Manipulation"
 date: "`r Sys.Date()`"
-<<<<<<< HEAD
 output:
   pdf_document: default
   html_document: default
 editor_options:
-=======
 output: html_document
 editor_options: 
->>>>>>> refs/remotes/origin/main
   chunk_output_type: console
 ---
 
@@ -116,12 +113,8 @@ Create a variable called `bird_wingspan_cm` and assign it a value of 105. Then c
 
 ```{r}
 # Your code here:
-<<<<<<< HEAD
 bird_wingspan_cm <- 105
 bird_wingspan_m <- 105/100
-=======
-
->>>>>>> refs/remotes/origin/main
 
 ```
 
@@ -177,17 +170,14 @@ class(genus)  # "character"
 
 ```{r error=TRUE}
 
-<<<<<<< HEAD
 sample_id <- "42" #numbers in quotations are characters"
 class(sample_id)  # "character" - we can't perform operations with the variable sample_id
 
 #sample_id + 1  # generates an error because we're trying to add an integer and a character
-=======
 sample_id <- "42"
 class(sample_id)  # "character" - we can't perform operations with the variable sample_id
 
 sample_id + 1  # generates an error because we're trying to add an integer and a character
->>>>>>> refs/remotes/origin/main
 ```
 
 ## 3. LOGICAL - TRUE or FALSE (Boolean values)
@@ -206,11 +196,8 @@ class(is_mammal)  # "logical"
 Logical values come from comparisons:
 
 ```{r}
-<<<<<<< HEAD
 5 > 3         # TRUE (5 is greater than 3) #asking R if 5 is greater than 3, will respond "5"
-=======
 5 > 3         # TRUE (5 is greater than 3)
->>>>>>> refs/remotes/origin/main
 5 < 3         # FALSE
 5 == 5 # TRUE (note: double equals for comparison)
 5 != 3        # TRUE (5 is NOT equal to 3)
@@ -228,11 +215,9 @@ TRUE | FALSE  # OR: at least one must be true -> TRUE
 
 is_mammal <- TRUE
 can_fly <- FALSE
-<<<<<<< HEAD
 is_mammal & can_fly #cannot be a mammal,, and fly, these values were prev assigned 
-=======
+
 is_mammal & can_fly
->>>>>>> refs/remotes/origin/main
 is_mammal | can_fly
 
 ```
@@ -285,17 +270,14 @@ as.numeric("hello")  # NA (with a warning)
 
 ```{r}
 # Your code here:
-<<<<<<< HEAD
 dolphin_scientific_name <- "Delphinidae"
 dolphin_average_lifespan_years <- 55
 dolphin_is_extant <- TRUE 
 class(dolphin_scientific_name)
 class(dolphin_average_lifespan_years)
 class(dolphin_is_extant)
-=======
 
 
->>>>>>> refs/remotes/origin/main
 ```
 
 ------------------------------------------------------------------------
@@ -361,14 +343,11 @@ substr("Accipiter", 1, 3)  # Extract characters: "Acc"
 
 ```{r}
 # Your code here:
-<<<<<<< HEAD
 sqrt(144)
 round(17.389, digits = 1)
 paste("Tabitha", "Hafenbrak")
 nchar("Blacktip reef shark")
-=======
 
->>>>>>> refs/remotes/origin/main
 ```
 
 ------------------------------------------------------------------------
@@ -489,16 +468,11 @@ area <- length_cm * width_cm         # Multiply corresponding elements
 
 ```{r}
 # Your code here:
-<<<<<<< HEAD
 temps <- c(18.5, 20.2, 19.8, 22.1, 21.5, 19.0, 17.8)
 mean(temps)
 temps > 20
 max(temps)
 min(temps)
-
-
-=======
->>>>>>> refs/remotes/origin/main
 
 
 ```
@@ -554,10 +528,7 @@ summary(birds)      # Statistical summary of each column
 ```{r}
 # Method 1: $ notation (most common)
 birds$species           # Returns species column as a vector
-<<<<<<< HEAD
 #$ references a column in a dataframe
-=======
->>>>>>> refs/remotes/origin/main
 birds$body_mass_g      # Returns body_mass_g column
 
 # Method 2: Double brackets
@@ -645,17 +616,13 @@ birds[order(-birds$body_mass_g), ]
 
 ```{r}
 # Your code here:
-<<<<<<< HEAD
 trees <- data.frame(species = c("Oak", "Maple", "Pine", "Birch"), 
                     height_m = c(25, 20, 30, 18),
                     is_evergreen = c(FALSE, FALSE, TRUE, FALSE))
 trees$height_ft <- trees$height_m * 3.28
 trees$height_m > 20
 mean(trees$height_m)
-=======
 
-
->>>>>>> refs/remotes/origin/main
 
 ```
 
@@ -712,7 +679,7 @@ measurements_complete
 measurements[!is.na(measurements$weight), ]
 ```
 
-\<\<\<\<\<\<\< HEAD \## Replacing Missing Values ======= \## Replacing Missing Values \>\>\>\>\>\>\> refs/remotes/origin/main
+
 
 ```{r}
 # Replace NAs with a specific value:
@@ -736,15 +703,12 @@ measurements
 
 ```{r}
 # Your code here:
-<<<<<<< HEAD
 sum(is.na(measurements$length))
 median(na.omit(measurements$length))
 na.omit(measurements)
-=======
 
 
 
->>>>>>> refs/remotes/origin/main
 ```
 
 ------------------------------------------------------------------------
