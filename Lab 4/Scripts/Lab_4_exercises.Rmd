@@ -305,27 +305,24 @@ Clean up the following code to produce a cleaner looking figure.
 ```{r}
 
 ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +
-  geom_point(size = 4, stroke = 2) +
+  geom_point() +
   theme(
-    panel.grid.major = element_line(color = "black", linewidth = 1.2),
-    panel.grid.minor = element_line(color = "gray40", linewidth = 0.8),
-    panel.background = element_rect(fill = "gray80"),
-    plot.background = element_rect(fill = "gray70"),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 3),
-    axis.title = element_text(face = "bold", size = 14),
-    axis.text = element_text(face = "bold", size = 12, color = "black"),
-    legend.background = element_rect(fill = "gray60", color = "black", linewidth = 1),
-    legend.title = element_text(face = "bold"),
-    axis.ticks = element_line(linewidth = 1.5, color = "black"),
+    panel.grid.major = element_line(color = "gray40", linewidth = 0.5),
+    panel.grid.minor = element_line(color = "gray40", linewidth = 0.5),
+    panel.border = element_rect(color = "black", fill = NA),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 10, color = "black"),
+    legend.background = element_rect(color = "black", linewidth = 1),
+    axis.ticks = element_line(linewidth = 0.5, color = "gray40"),
     axis.ticks.length = unit(0.3, "cm")
   ) +
   labs(
-    x = "SEPAL LENGTH (cm)",
-    y = "PETAL LENGTH (cm)",
-    title = "IRIS DATA",
-    color = "SPECIES"
+    x = "Sepal Length (cm)",
+    y = "Petal Length(cm)",
+    title = "Iris Data",
+    color = "Species"
   ) +
-  ggtitle("IRIS SEPAL VS PETAL LENGTH")
+  ggtitle("Iris Sepal vs Petal Length ")
 
 
 ```
@@ -361,7 +358,9 @@ Plot hp vs. mpg in the mtcars2 data and label the dots of four cars of interest 
 ```{r}
 # Your code here
 
-
+data(mtcars)
+#replicate from above but with mtcars
+    
 
 ```
 
@@ -462,6 +461,7 @@ Among the most important graphic techniques emphasized by Tufte is the use of 's
 
 ```{r echo=FALSE, fig.align="center", include=TRUE, fig.height=10, out.width="100%", out.height="40%"}
 knitr::include_graphics(path.expand("../Figures/amazon.png"))
+#fires in amazon rainforest 
 ```
 
 Let's go back to our global life expectancy data and apply this rule :
@@ -554,8 +554,10 @@ co2_df <- data.frame(
   month = month.abb[cycle(co2)]
 )
 
+#within dataframe arguments it is important to use "=" and not arrows
+
 ggplot(co2_df, aes(x = year, y = co2, color = month))+
-  geom_line()+
+  geom_point()+
   theme_minimal(10)
 ```
 
@@ -566,10 +568,12 @@ ggplot(co2_df, aes(x = year, y = co2, color = month))+
   geom_line()+
   theme_minimal(10)+
   scale_color_manual(values = viridis(length(unique(co2_df$month))))
+#can take a number of colors from the viridis color pallete, that is the same as the number of months
 
 # Order seasonally, not alphabetically (R default)
 co2_df %>% 
   mutate(month = factor(month, levels = month.abb)) %>% 
+#levels = month.abb means the levels of month are the abbreviated names of the months 
   ggplot(aes(x = year, y = co2, color = month))+
   geom_line()+
   theme_minimal(10)+
@@ -591,6 +595,7 @@ co2_df %>%
   scale_colour_gradient(low = "blue", 
                        high = "#E74C3C")+
   labs(x = "Year", y = expression("pC0"[2] ~ "(ppm)"))+
+#can color the value of the graph based on where it is on the y axis 
     # The scale bar is redundant here
     theme(legend.position = "none")
 ```
@@ -605,13 +610,21 @@ Prior to R v. 4.0.0, these were typical coloring defaults:
 example <- rnorm(100)
 plot(example,
      col = oce.colorsJet(10), 
+     pch = (20),
      cex = 2)
+#colorsJet colour palette is very bad 
 ```
 
 \
 
 ```{r, out.height="70%", out.width="80%"}
 RColorBrewer::display.brewer.all()
+
+#top chunk of output are SEQUENTIAL gradients - good for 0-1 
+
+#middle are QUALITATIVE palttes, nice way to color groups where ordering doesn't matter
+
+#bottom one is the DIVERGENT color pallete- ordering does matter, good for changes over time in data 
 ```
 
 Here is an example from the [**Economist**](https://www.economist.com) using sequential palettes and excellent visualization features to quicky convey the key message: Sea ice in the Arctic Ocean has been steadily retreating (on average) towards present. The sequential color palette nicely corresponds to a progressively colder scale.
@@ -628,12 +641,16 @@ This figure displays the discrepancies that can occur in visual perception and t
 
 ```{r echo=FALSE, fig.align="center", include=TRUE, out.height="30%", out.width="50%"}
 knitr::include_graphics(path.expand("../Figures/Figure_3.png"))
+
+#color palletes good for color defiencies
 ```
 
 Another example from the **Economist**. In this case, the main title sets the stage to interpret the figures main components: The relative jump in housing prices was significant leading up to the COVID pandemic and was forecasted (in many places, underestimated!) to grow into this decade. The main color palettes are qualitative and the forecast uncertainties are shows in an easy-to-understand sequential palette. Our eyes naturally register country-level differences at the right side of the plot and the color codes are purposefully chosen to prevent too many similar colors bunching together in this space. Imagine if colors were chosen ignoring this, it might be as difficult as it is looking at the left side of the plot.
 
 ```{r echo=FALSE, fig.align="center", include=TRUE, fig.height=15}
 knitr::include_graphics(path.expand("../Figures/Figure_4.png"))
+
+#qualitatie color pallete used
 ```
 
 \
@@ -646,6 +663,7 @@ Use the facet_wrap geom to plot player age versus batting average for every team
 ```{r}
 #YOUR CODE HERE
 
+#WRONF EXERCISE FOR THIS CLASS, SKIP
 
 
 ```
