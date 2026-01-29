@@ -712,11 +712,7 @@ measurements_complete
 measurements[!is.na(measurements$weight), ]
 ```
 
-<<<<<<< HEAD
-## Replacing Missing Values
-=======
-## Replacing Missing Values 
->>>>>>> refs/remotes/origin/main
+\<\<\<\<\<\<\< HEAD \## Replacing Missing Values ======= \## Replacing Missing Values \>\>\>\>\>\>\> refs/remotes/origin/main
 
 ```{r}
 # Replace NAs with a specific value:

@@ -201,6 +201,10 @@ A)  What are the exact measurements (Sepal.Length, Sepal.Width, Petal.Length, Pe
 ```{r}
 # YOUR CODE HERE
 
+first <- iris[1, ]
+first 
+nrow(iris)
+last <- iris[150, ]
 ```
 :::
 
@@ -221,6 +225,7 @@ plot(iris)
 plot(iris, 
      col = "forestgreen", 
      pch = 19)
+#pch means plotting character and specifies the she shape of points 
 
 # Plotting one variable?
 plot(iris[,1])
@@ -274,8 +279,16 @@ B)  Which species has (on average) the longest and widest petals? Store it as a 
 
 ```{r}
 # YOUR CODE HERE
+plot(iris$Petal.Length, iris$Species)
+str(iris)
+#shows that species has 3 factor levels 
+plot(iris$Species)
+#the three species are setosa, versicolor, virginica
+longest_petal_length <- "virginica"
 
-```
+plot(iris$Petal.Width, iris$Species)
+
+widest_petal_length <- "virginica"
 :::
 
 ## Introduction to plotting

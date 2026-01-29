@@ -48,8 +48,7 @@ variable <- "setosa"
 
 ```
 
-:::\
-
+:::::::::: \
 ::: {style="background-color: #44AA99; transparent; padding: 5px; border-radius: 2px;"}
 ## 2. Task 2
 
@@ -199,3 +198,4 @@ C)  Save the previous plot as a `ggplot` object in your Figures folder named `ar
 ```
 
 Be sure before submitting this assignment to clear your and environment and re-run your code to ensure it works then submit this `markdown` file to the relevant Brightspace submission box.
+::::::::::
