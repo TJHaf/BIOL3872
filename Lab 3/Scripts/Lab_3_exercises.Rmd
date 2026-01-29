@@ -279,6 +279,7 @@ B)  Which species has (on average) the longest and widest petals? Store it as a 
 
 ```{r}
 # YOUR CODE HERE
+#A)
 plot(iris$Petal.Length, iris$Species)
 str(iris)
 #shows that species has 3 factor levels 
@@ -289,6 +290,22 @@ longest_petal_length <- "virginica"
 plot(iris$Petal.Width, iris$Species)
 
 widest_petal_length <- "virginica"
+
+mean(iris$virginica)
+
+#B)
+
+virginica <- iris[iris$Species == "virginica", ]
+setosa <- iris[iris$Species == "setosa", ]
+versicolor <- iris[iris$Species == "versicolor", ]
+#filtering the species column by all the virginicas etc
+
+mean(virginica$Petal.Length)
+mean(setosa$Petal.Length)
+mean(versicolor$Petal.Length)
+#taking mean of petal.length column in each subsetted dataframe (by each species), determined longest petal length was held by virginica
+
+Largest_av_petal_length <- "virginica"
 :::
 
 ## Introduction to plotting
