@@ -679,8 +679,6 @@ measurements_complete
 measurements[!is.na(measurements$weight), ]
 ```
 
-
-
 ```{r}
 # Replace NAs with a specific value:
 measurements$weight[is.na(measurements$weight)] <- 0
