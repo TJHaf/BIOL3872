@@ -1,7 +1,7 @@
 ---
 title: "Biol 3872 Lab4-Assignment"
-author: ""
-student_id: ""
+author: "Tabitha Hafenbrak"
+student_id: "B00925949"
 date: "`r Sys.Date()`"
 editor_options:
   chunk_output_type: inline
@@ -37,9 +37,15 @@ B) Now add a `geom` jitter layer to your plot showing how the data is distribute
 data("iris")
 #A)
 # YOUR CODE HERE
+iris_mean <- ggplot(data = iris, aes(x= Species, y = Sepal.Length, color = Species))+
+  stat_summary(fun = "mean", geom = "crossbar")
 
 #B)
 # YOUR CODE HERE
+iris_data <- ggplot(data = iris, aes(x= Species, y = Sepal.Length, color = Species))+
+  stat_summary(fun = "mean", geom = "crossbar")+
+  geom_jitter()
+
 ```
 :::
 
@@ -60,10 +66,25 @@ C)  Add to `fuel_efficiency_plot_b`, another column `geom` which is filled by ca
 data("mtcars")
 # A)
 # YOUR CODE HERE
+fuel_efficiency_plot_a <- mtcars %>% 
+rownames_to_column(var = "cartype") %>% 
+mutate(cartype = fct_reorder(cartype, mpg, .desc = TRUE)) %>% 
+  ggplot(aes(x = cartype, y = mpg))+
+  geom_col()
+
 # B)
 # YOUR CODE HERE
+
+fuel_efficiency_plot_b <- fuel_efficiency_plot_a+
+  theme_minimal(12)+
+  theme(axis.text.x = element_text(angle=45, hjust=1))
+
 # C)
 # YOUR CODE HERE
+
+fuel_efficiency_plot_c <- fuel_efficiency_plot_b+
+  geom_col(aes(x = cartype, y = mpg, fill = wt))+
+  scale_fill_viridis_b()
 ```
 :::
 
@@ -80,6 +101,24 @@ Patch this `cars_compared` plot with `fuel_efficiency_plot_c` as a single column
 ```{r}
 # A)
 # YOUR CODE HERE
+horsepower_plot <- mtcars %>% 
+  rownames_to_column(var = "cartype") %>% 
+  mutate(cartype = fct_reorder(cartype, mpg, .desc = TRUE)) %>% 
+  ggplot(aes(x = cartype, y = hp))+
+  theme_minimal(12)+
+  theme(axis.text.x = element_text(angle=45, hjust=1))+
+  geom_point(aes(x = cartype, y = hp, fill = wt, size = 3))+
+  scale_fill_viridis_b()
+  
+horsepower_plot
+
+cars_compared <- horsepower_plot+
+  fuel_efficiency_plot_c+
+plot_layout(ncol = 1,
+              axis_titles = "collect_x")
+cars_compared
+
+
 ```
 :::
 
@@ -97,8 +136,29 @@ B) Order the season variable as a factor (Levels = Winter, Spring, Summer, Autum
 # A)
 data("co2")
 # YOUR CODE HERE
+co2_df <- data.frame(
+  species = c("co2", "year", "month"),
+  co2 = as.numeric(co2),
+  year = trunc(time(co2)),
+  month = month.abb[cycle(co2)]
+)
+
+co2_df$season <- ifelse(co2_df$month %in% c("Dec", "Jan", "Feb"), "Winter",
+                        ifelse(co2_df$month %in% c("Mar", "Apr", "May"), "Spring",
+                               ifelse(co2_df$month %in% c("Jun", "Jul", "Aug"), "Summer",
+                               ifelse(co2_df$month %in% c("Sep", "Oct", "Nov"), "Autumn", NA))))
+
 # B)
 # YOUR CODE HERE
+seasonal_co2 <- co2_df %>% 
+  mutate(month = factor(month, levels = c("Winter", "Spring", "Summer", "Autumn"))) %>% 
+  
+  ggplot(aes(x = year, y = co2, color = season))+
+  geom_point()+
+  geom_jitter()+
+  theme_minimal(12)+
+  scale_color_manual(values = c("#0072B2", "#009E73", "#CC79A7", "#E69F00"))
+
 ```
 :::
 
@@ -113,6 +173,14 @@ A) Using the same `co2_df` as above, order the months by the calender order (not
 ```{r}
 # A)
 # YOUR CODE HERE
+ordered_co2_friendly <- co2_df %>% 
+  mutate(month = factor(month, levels = month.abb)) %>% 
+  ggplot(aes(x = year, y = co2, color = season))+
+  geom_point()+
+  theme_minimal(12)+
+  scale_color_discrete_diverging(palette = "Green-Orange")+
+  facet_grid(~season)
+
 ```
 :::
 
