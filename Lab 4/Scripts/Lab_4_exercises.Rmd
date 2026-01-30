@@ -111,6 +111,7 @@ Napoleons_retreat <- polished_p +
   temp_p + 
   plot_layout(ncol = 1, 
               axis_titles = "collect_x")
+Napoleons_retreat
 ```
 
 This is not as elegant as Minard's depiction, but it was **significantly** easier to produce. Such is the power of programmatic tools. This is a small example as an entry point into broader principles of visualization that we will cover today. These are inspired by Edward Tufte.
@@ -573,7 +574,7 @@ ggplot(co2_df, aes(x = year, y = co2, color = month))+
 # Order seasonally, not alphabetically (R default)
 co2_df %>% 
   mutate(month = factor(month, levels = month.abb)) %>% 
-#levels = month.abb means the levels of month are the abbreviated names of the months 
+#levels = month.abb means the levels of month are the abbreviated names of the months and in calendar order 
   ggplot(aes(x = year, y = co2, color = month))+
   geom_line()+
   theme_minimal(10)+
