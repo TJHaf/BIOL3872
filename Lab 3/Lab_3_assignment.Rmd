@@ -34,14 +34,31 @@ Report your answer in the code chunks below.
 ```{r Task 1}
 #A) 
 # YOUR CODE HERE
-
+plot(iris$Species, 
+     iris$Petal.Length) 
+longest <- "virginica"
+ 
 #B)
 # YOUR CODE HERE
+Species_and_Width <- iris[,c(2,5)] 
+#making new dataframe with only species and species width 
 
+subset_setosa <- subset(Species_and_Width, Species == "setosa")
+#making new dataframe with only setosa and the sepal widths
+subset_virginica <- subset(Species_and_Width, Species =="virginica")
+#making new dataframe with only virginica and sepal widths
+subset_versicolor <-subset(Species_and_Width, Species == "versicolor")
+#making new dataframe with only versicolor and sepal widths
+
+var(subset_setosa)
+var(subset_virginica)
+var(subset_versicolor)
+#printing the variance of each species speal widths, setosa has the highest 
+
+variable <- "setosa"
 ```
 
-:::\
-
+:::::::::: \
 ::: {style="background-color: #44AA99; transparent; padding: 5px; border-radius: 2px;"}
 ## 2. Task 2
 
@@ -50,6 +67,7 @@ A)  Using `base` R, produce a `plot` of all variables excluding the `species` va
 ```{r Task 2}
 #A)
 # YOUR CODE HERE
+base_plot.png <- plot(iris[,1:4], col = iris$Species)
 
 ```
 :::
@@ -165,3 +183,4 @@ C)  Save the previous plot as a `ggplot` object in your Figures folder named `ar
 ```
 
 Be sure before submitting this assignment to clear your and environment and re-run your code to ensure it works then submit this `markdown` file to the relevant Brightspace submission box.
+::::::::::
