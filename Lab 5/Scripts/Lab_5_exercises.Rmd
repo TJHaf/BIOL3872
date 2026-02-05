@@ -47,6 +47,8 @@ packages <- c("ggplot2", "dplyr", "dplyr", "tidyr")
 installed_packages <- packages %in% installed.packages()
 if (any(installed_packages == FALSE)) {
   install.packages(packages[!installed_packages])
+  
+  #look through installed packages and if any of them are not installed, install them 
 }
 
 # Packages loading
@@ -92,7 +94,7 @@ example$iffy <- ifelse(example$y > 1, "Large", "Small")
 
 x <- -10
 
-if (x < 0) {
+if (x < 10) {
   print("x is greater than or equal to 10")
 } else {
   print("x is less than 10")
@@ -116,6 +118,14 @@ Build a multi-chain `ifelse` statement based on the syntax above:
 
 ```{r}
 # YOUR CODE HERE
+x <- pi
+if (x < 1){
+  print("x is not pi")
+} else  if(x < 2){ 
+  print("x is almost pi ")
+} else {
+  print("x has been pi all along")
+}
 
 ```
 
@@ -133,7 +143,7 @@ if (is.numeric(x)) {
   print(x)
   # THERE COULD BE ANOTHER ELSE IF here to continue
 }
-
+#if x is not numeric the else statement is used to convert x into numeric 
 ```
 
 ### for loops
@@ -150,6 +160,7 @@ example_2 <- rnorm(100, sd = pi)
 for (i in example_2) {
   z <- i * pi
 }
+#i is a convention much like "x"in math, is a place holder for object(s) being run through loop 
 ```
 
 \
@@ -178,11 +189,13 @@ hist(fish_abundance$depth)
 
 fish_abundance %>% 
   mutate(year = sort(factor(year, levels = as.character(2016:2020)))) %>% 
-  # Remove so log transform doesn't produce negative values
+#sort orders the years in lowest to highest order
   filter(num_cpue > 0) %>% 
+# Remove any values below zero using filter so log transform doesn't produce negative values
   ggplot(aes(x = log(num_cpue), y = depth, color = year))+
   geom_point(alpha = 0.5) + 
   scale_y_reverse() +
+#reversing the y axis so that the surface (depth = 0) is at the top of the plot (more intuitive)
   theme_bw(12)+
   scale_color_brewer(palette = "Spectral") +
   guides(color = guide_legend(override.aes = list(alpha = 1, size = 4)))
@@ -199,33 +212,36 @@ fish_abundance$depth_category <- ifelse(fish_abundance$depth <= 50,
                                         ifelse(fish_abundance$depth > 50 & 
                                                  fish_abundance$depth <= 150,
                                                "Mesopelagicish", "Deep"))
-
+#if depth is less than or equal to 50, assign label "shallow", if its false run another ifelse statement
+#ifelse statements have a test, yes, no statement. in the no statement of the function we have added another if.else option
 
 # Create objects to search over in for loop
 Depths <- rev(sort(unique(fish_abundance$depth_category)))
 Species <- unique(fish_abundance$accepted_name)
+#orders all the unique depth categories and then all the unique species  
 
-# This is a list! Like a vector but more flexible (can store multiple data types)
+# This is a list! Like a vector but more flexible (can store multiple data types), is an empty list we will fill below
 Depths_output <- list()
 
+#use a loop to look for all the unique species in all depths, to prevent pasting over previous output of loop run, we can save every output into a list
 for(i in Depths) {
-  # Subset the data frame for depth catgeorgies
+  # Subset the data frame for depth catgeorgies "i" aka deep, mesopelagicish, and deep
     depth_group <- fish_abundance[fish_abundance$depth_category == i, ]
     for(z in Species){
-      # For species within that category
+      # For species within that depth category, subset by the species found within 
       species_depth_group <- depth_group[depth_group$accepted_name == z, ]
-      # If no species are found...
+      # If no species are found in that category...move on to the next
       if (is.null(depth_group[depth_group$accepted_name == z, ])){
         # Move on
         next
       }
-      # Otherwise, run these operations
+      # Otherwise (if the species is found at that depth), run these operations
       mean_abundance_by_depth <- mean(species_depth_group$num_cpue, na.rm = TRUE)
       # Store our mean abundance per species (z) per depth category (i) in the list
       Depths_output[[z]][[i]] <- mean_abundance_by_depth
     }
 }
-
+# the do.call function allows us to execute a function that binds all the rows to the depths_out and then muta
 # Bind it all together (here, bind_rows rather than rbind gets around lists of lists)
 abundance_sp_dpth <- do.call(bind_rows, Depths_output) %>% 
   mutate(Taxon = names(Depths_output)) %>% 
@@ -236,6 +252,8 @@ abundance_sp_dpth <- do.call(bind_rows, Depths_output) %>%
   # This imputes zeros for all NAs (important assumption!)
   # We could also drop them all if we're interested in apparent richness
   replace((is.na(.)), 0)
+
+#makes our list generated from our loop into a dataframe
 
 # We can visualize the group distribution
 ggplot(abundance_sp_dpth, aes(x = log(num_cpue)))+
@@ -266,6 +284,8 @@ groundfishes <- abundance_sp_dpth[grepl(paste(select_fishes,
                                               collapse = "|"), 
                                         abundance_sp_dpth$Taxon), ]
 
+#grepl says to look for patterns - in abundance_sp_depth? look for any of the names in select_fishes 
+
 # Plotting the relative abundance of each species across depths
 groundfishes %>% 
   group_by(Taxon) %>% 
@@ -288,6 +308,12 @@ Use the the ground fish survey data^1^ frame example from lab 2. Create a `for()
 ```{r}
 # YOUR CODE HERE
 
+
+#group by - says for each year for each species, summarise by catch per unit effor
+
+fish_abundance %>% 
+  group_by(year, accepted_name) %>% 
+  summarise(sum = sum(num_cpue))
 ```
 
 ### Vectorizing operations with \*apply
@@ -297,11 +323,14 @@ There are many vectorized options (as opposed to an explicit loop) now in R to a
 ```{r}
 data("iris")
 
-# Here is a potential solution to Lab 3 question 1.
+# Here is a potential solution to Lab 3 question 1. says for all the petal lengths across all groups (species) take the max value
 tapply(iris$Petal.Length, iris$Species, max)
 
 # What if we want the means of each numeric column without repeating this step?
 lapply(iris[sapply(iris, is.numeric)], mean)
+#sapply subets??
+#can be used for saying, for all the columns that are numeric, take the mean
+
 
 # What about means of each numeric column for each species?
 spec_means <- lapply(
@@ -309,10 +338,16 @@ spec_means <- lapply(
   colMeans
 )
 
+# always read as inner brackets to outer
+#we subset iris by all the columns that are numeric
+#then we split by species 
+#then we take the column eans 
+
 spec_means
 
-# We can transform this back to a data frame
+# We can transform this back to a data frame using do.call
 do.call(rbind, spec_means)
+# coudl use rbind or bind_rows, both do the same thing
 ```
 
 ### User-defined functions
@@ -323,6 +358,8 @@ We have already introduced convenience functions. We can build our own functions
 function_name <- function(arg_1, arg_2, ...) {
    Function_body
 }
+
+#name it and using a function with balnk arguments
 ```
 
 ```{r}
@@ -340,7 +377,7 @@ We can create functions that take *named* or *positional* arguments.
 useless_function <- function(x, y){
   43 + x*y
 }
-
+#takes arguments x and y which are defined below
 x <- 10
 y <- 10
 
@@ -363,8 +400,9 @@ summarize_fish <- function(data,
                            species_col = "accepted_name", 
                            abundance_col = "num_cpue",
                            stat_type = "mean") {
+  #data is the arg when u state the dataframe, other args defined as well
   
-  # Get unique species
+  # Get unique species names within species col
   species_list <- unique(data[[species_col]])
   
   # Create an empty data frame to store results
@@ -392,12 +430,14 @@ summarize_fish <- function(data,
       stat_value <- mean(sp_data, na.rm = TRUE) #Default if unrecognized stat type
 
     }
-    
+   #final else is used as default if a stat function is entered by user that hasnt been specified 
     # Add to results
     results <- rbind(results, data.frame(species = sp, value = stat_value))
   }
   
   return(results)
+#says to return the results calculated internally when you run the function, without this NOTHING WILL HAPPEN
+  
 }
 
 # Let's look at mean abundance 
@@ -418,7 +458,12 @@ Create a function called `classify_abundance` that takes a numeric vector of abu
 ```{r}
 
 #YOUR CODE HERE
-
+classify_abundance <- function(x){
+  ifelse(x == 0, "Absent",
+         ifelse(x < 10, "Rare",
+                ifelse(x >= 10 & x <= 100, "Common", "Abundant")))
+}
+classify_abundance(101)
 ```
 
 # Data manipulation tools for flow control
@@ -455,6 +500,8 @@ There are several types of joins, useful in different situations:
 
 ```{r echo=FALSE, fig.align="center", fig.height=10, include=TRUE, out.height="40%", out.width="100%"}
 
+#matching with column a == match the columns into new frame
+
 knitr::include_graphics(path.expand("../Figures/left_join.png"))
 ```
 
@@ -481,6 +528,7 @@ depth_by_species <- fish_abundance %>%
     .groups = "drop"
   )
 
+#accepted_name is the equivalent of col A in the image 
 
 ```
 
@@ -526,9 +574,13 @@ nrow(subset_species)
 left_result <- left_join(mean_by_species, subset_species, by = "accepted_name")
 nrow(left_result)
 
+#row any rows without data, they wil be kept and NAs will be added
+
 # Inner join: keeps only matching rows
 inner_result <- inner_join(mean_by_species, subset_species, by = "accepted_name")
 nrow(inner_result)
+
+#less rows matched, will not add in with NAs like left join does
 
 # Notice the difference in row counts!
 ```
@@ -560,7 +612,8 @@ depth_by_species <- fish_abundance %>%
     mean_depth = mean(depth, na.rm = TRUE),
     .groups = "drop"
   )
-
+##incomplete line
+##combined_data <-left_join(abundance_by_year, depth_by_species, by= accepted=name)
 ```
 
 ## Sometimes we can replace loops
@@ -592,8 +645,8 @@ abundance_detailed <- fish_abundance %>%
     n = n(),
     .groups = "drop"
   )
-
-
+#.groups ungrops data after you group data
+#n tells us the number of.....
 
 ```
 
