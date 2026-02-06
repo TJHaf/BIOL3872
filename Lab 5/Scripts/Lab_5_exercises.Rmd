@@ -160,7 +160,7 @@ example_2 <- rnorm(100, sd = pi)
 for (i in example_2) {
   z <- i * pi
 }
-#i is a convention much like "x"in math, is a place holder for object(s) being run through loop 
+#i is a convention much like "x" in math, is a place holder for object(s) being run through loop 
 ```
 
 \
@@ -241,7 +241,7 @@ for(i in Depths) {
       Depths_output[[z]][[i]] <- mean_abundance_by_depth
     }
 }
-# the do.call function allows us to execute a function that binds all the rows to the depths_out and then muta
+# the do.call function allows us to execute a function that binds all the rows to the depths_out and then mutate
 # Bind it all together (here, bind_rows rather than rbind gets around lists of lists)
 abundance_sp_dpth <- do.call(bind_rows, Depths_output) %>% 
   mutate(Taxon = names(Depths_output)) %>% 

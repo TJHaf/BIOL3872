@@ -90,12 +90,12 @@ marine_survey$environments <- ifelse (marine_survey$species_count > quantile(mar
 
 # B)
 # CODE TO FIX
-#numeric_columns <- sapply(marine_survey, as.numeric)
+numeric_columns <- sapply(marine_survey, is.numeric)
 
-#diverse_hot_envs <- sapply(marine_survey[, numeric_columns], function(x) {
-  #median(ifelse(marine_survey$environments == "diverse & hot", q, NA), 
-         #na.rm = FALSE)
-#})
+diverse_hot_envs <- sapply(marine_survey[ ,numeric_columns], function(x) {
+  median(ifelse(marine_survey$environments == "diverse and hot", x, NA), 
+      na.rm = TRUE)
+})
 
 ```
 :::
@@ -109,6 +109,14 @@ B)  Write a `for()` loop which multiples all elements of `sheep` by pi and store
 
 ```{r}
 # YOUR CODE HERE
+sheep <- 1:100
+
+counting_sheep <- numeric(length(sheep))
+
+ for(i in sheep) {
+  counting_sheep[i] <- sheep[i] *pi
+ }
+
 
 ```
 :::
@@ -116,7 +124,7 @@ B)  Write a `for()` loop which multiples all elements of `sheep` by pi and store
 ::: {style="background-color: #44AA99; padding: padding: 5px; border-radius: 2px;"}
 ## Task 5
 
-A)  Using the `marine_survey` data frame, use the `lapply` function function to calculate the summary statistics of each numeric column and store this as a `list` called `numeric_summaries`.
+A)  Using the `marine_survey` data frame, use the `lapply` function to calculate the summary statistics of each numeric column and store this as a `list` called `numeric_summaries`.
 
 B)  Modify the conversion step using `do.call` to flatten this list to a data frame called `numeric_summaries_df`.
 
@@ -125,16 +133,15 @@ C)  Add a column called `variables` using the rownames.
 ```{r}
 #A)
 # CODE TO FIX
-#numeric_summaries <- vapply(marine_survey(sapply(marine_survey, is.character)), summary)
+numeric_summaries <- lapply(marine_survey[sapply(marine_survey, is.numeric)], summary)
 
 #B) 
 # CODE TO FIX
-# numeric_summaries_df <- do.call(cbind, replicate(numeric_summaries, as.data.frame.list))
-
+ numeric_summaries_df <- do.call(bind_rows,numeric_summaries)
 
 # C) 
-
-
+numeric_summaries_df <- do.call(bind_rows,numeric_summaries) %>% 
+mutate(variables = rownames(numeric_summaries_df))
 ```
 :::
 
