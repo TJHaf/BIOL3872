@@ -34,28 +34,11 @@ Report your answer in the code chunks below.
 ```{r Task 1}
 #A) 
 # YOUR CODE HERE
-plot(iris$Species, 
-     iris$Petal.Length) 
-longest <- "virginica"
+
  
 #B)
 # YOUR CODE HERE
-Species_and_Width <- iris[,c(2,5)] 
-#making new dataframe with only species and species width 
 
-subset_setosa <- subset(Species_and_Width, Species == "setosa")
-#making new dataframe with only setosa and the sepal widths
-subset_virginica <- subset(Species_and_Width, Species =="virginica")
-#making new dataframe with only virginica and sepal widths
-subset_versicolor <-subset(Species_and_Width, Species == "versicolor")
-#making new dataframe with only versicolor and sepal widths
-
-var(subset_setosa)
-var(subset_virginica)
-var(subset_versicolor)
-#printing the variance of each species speal widths, setosa has the highest 
-
-variable <- "setosa"
 ```
 
 :::::::::: \
@@ -67,8 +50,8 @@ A)  Using `base` R, produce a `plot` of all variables excluding the `species` va
 ```{r Task 2}
 #A)
 # YOUR CODE HERE
-base_plot.png <- plot(iris[,1:4], col = iris$Species)
 
+plot
 ```
 :::
 
@@ -82,6 +65,10 @@ A)  Based on the grammar of graphics, produce a **blank plot (no data plotted)**
 ```{r Task 3}
 #A)
 # YOUR CODE HERE
+
+empty_plot <- ggplot(data = iris)+
+  labs(x ="Species", y = "Sepal Widths", title = "Blank")
+
 ```
 :::
 
@@ -100,6 +87,9 @@ A)  Fix the code below so that it runs and plots successfully and store it as a 
 
 # A)
 # YOUR CODE HERE
+fixed_traits_plot <- ggplot(iris, aes(x = Petal.Length, y = Sepal.Length, color = Species))+
+  geom_point(aes(size = Petal.Width))+
+  theme_minimal()
 ```
 :::
 
@@ -120,7 +110,12 @@ A)  Fix and modify the code below and add a discretized `geom` (e.g., `hex`) wit
 #  scale_x_continuous(limits = seq(0,Inf,2))
 
 # YOUR CODE HERE
-
+fixed_traits_plot_discrete <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width))+
+  geom_hex(bins = 10)+
+  theme(legend.position = "left")+
+  scale_x_continuous(breaks = seq(0,150,2))+
+  scale_fill_viridis_b()+
+  facet_wrap(~Species)
 ```
 :::
 
@@ -136,7 +131,15 @@ Name and store it as a plot object as `petal_plot`.
 
 #A)
 # YOUR CODE HERE
-
+iris %>% 
+  pivot_longer(cols = c(3:4),
+               names_to = "Variable",
+               values_to = "Measurement") %>% 
+  ggplot(aes(x = Variable, y = Measurement, fill = Species))+
+  geom_boxplot()+
+  theme_minimal(12)+
+  scale_fill_manual(values = c("setosa" = "forestgreen", "versicolor" = "skyblue", "virginica" = "maroon"))
+  
 ```
 :::
 
