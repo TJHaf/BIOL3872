@@ -36,9 +36,11 @@ B)  Now add a `geom` jitter layer to your plot showing how the data is distribut
 ```{r}
 data("iris")
 #A)
+
 # YOUR CODE HERE
 iris_mean <- ggplot(data = iris, aes(x= Species, y = Sepal.Length, color = Species))+
   stat_summary(fun = "mean", geom = "crossbar")
+  
 
 #B)
 # YOUR CODE HERE
@@ -66,6 +68,7 @@ C)  Add to `fuel_efficiency_plot_b`, another column `geom` which is filled by ca
 data("mtcars")
 # A)
 # YOUR CODE HERE
+
 fuel_efficiency_plot_a <- mtcars %>% 
 rownames_to_column(var = "cartype") %>% 
 mutate(cartype = fct_reorder(cartype, mpg, .desc = TRUE)) %>% 
