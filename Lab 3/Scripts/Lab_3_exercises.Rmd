@@ -117,12 +117,34 @@ A)  What are the exact measurements (Sepal.Length, Sepal.Width, Petal.Length, Pe
 
 ```{r}
 # YOUR CODE HERE
+#last of sepal.length
+iris$Sepal.Length[length(iris$Sepal.Length)]
+#first of sepal.length
+iris$Sepal.Length[1]
 
+#last sepal.width 
+iris$Sepal.Width[length(iris$Sepal.Width)]
+# first sepal width 
+iris$Sepal.Width[1]
+
+#last petal.Length 
+iris$Petal.Length[length(iris$Petal.Length)]
+#first petal length
+iris$Petal.Length[1]
+
+#last petal width 
+iris$Petal.Width[length(iris$Petal.Width)]
+#first petal width 
+iris$Petal.Width[1]
+
+first <- c(5.1, 3.5, 1.4, 0.2)
+last <- c(5.9, 3, 5.1, 8.1)
 ```
 :::
 
 ```{r}
 # How can we construct new dataframes?
+first_and_last_dataframe <- data.frame(c(5.1, 3.5, 1.4, 0.2), c(5.9, 3, 5.1, 8.1))
 
 # What about basic data descriptions?
 summary(iris)
@@ -152,7 +174,8 @@ B)  Which species has (on average) the longest and widest petals? Store it as a 
 
 ```{r}
 # YOUR CODE HERE
-
+#mean Petal length for virginica 
+mean(iris$Petal.Length ~ iris$Species == "virginica")
 ```
 :::
 
