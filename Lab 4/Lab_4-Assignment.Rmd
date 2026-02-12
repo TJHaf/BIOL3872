@@ -137,6 +137,7 @@ B)  Order the season variable as a factor (Levels = Winter, Spring, Summer, Autu
 # A)
 data("co2")
 # YOUR CODE HERE
+
 co2_df <- data.frame(
   species = c("co2", "year", "month"),
   co2 = as.numeric(co2),
