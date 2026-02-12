@@ -175,7 +175,17 @@ B)  Which species has (on average) the longest and widest petals? Store it as a 
 ```{r}
 # YOUR CODE HERE
 #mean Petal length for virginica 
-mean(iris$Petal.Length ~ iris$Species == "virginica")
+#subsetting dataframes by species 
+virginica_subset <- subset(iris, Species == "virginica")
+versicolor_subset <- subset(iris, Species == "versicolor")
+setosa_subset <- subset(iris, Species == "setosa")
+
+mean(virginica_subset$Petal.Length)
+mean(versicolor_subset$Petal.Length)
+mean(setosa_subset$Petal.Length)
+
+longest_petal_length <- "virginica"
+
 ```
 :::
 
@@ -453,6 +463,18 @@ C)  Create a new `iris` object (e.g., `iris_task4`) where the `Species` factor c
 
 ```{r}
 # YOUR CODE HERE
+ggplot(data= iris, aes(x = Sepal.Length, y = Sepal.Width))+ 
+  geom_point()+
+  scale_x_continuous(breaks = 0.5)+
+  scale_y_continuous(breaks = 0.5)
+
+iris$Species <- factor(iris$Species, levels = rev(levels(iris$Species)))
+
+ggplot(data= iris, aes(x = Sepal.Length, y = Sepal.Width))+ 
+  geom_point()+
+  scale_x_continuous(breaks = 0.5)+
+  scale_y_continuous(breaks = 0.5)
+
 
 ```
 :::
