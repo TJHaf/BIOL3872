@@ -4,7 +4,7 @@ author: "Tabitha Hafenbrak"
 student_id: "B00925949"
 date: "`r Sys.Date()`"
 editor_options:
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 \
