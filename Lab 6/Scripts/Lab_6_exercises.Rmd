@@ -75,6 +75,11 @@ d <- "2025-02-26"
 
 # Encoding dates and times
 d <- as.Date(d)
+
+#if you don't specify the time zone of the data it will normally be assumed it is UTC
+
+#months in 3 letter abbreviations
+month.abb
 ```
 
 Just because characters are written like dates, does not guarantee they will be encoded properly. `base` R can transform these into dates.
@@ -114,6 +119,7 @@ You can find these formats and their descriptions in R by running `?strptime()`
 as.Date("13-02-2012", format = "%d-%m-%Y")
 
 # Note that base R date functions return NAs if the format doesn't match
+#make sure to match the formatting (slashes, dashes between the date and the desired formating)
 as.Date("13/02/2012", format = "%d-%m-%Y")
 
 # Can other formats be read unambiguously?
@@ -121,19 +127,24 @@ as.Date("13/02/2012", format = "%d-%m-%Y")
 
 
 # This can cause problems if you have inconsistent date formats in your data
+#having one dates with slashes and another with dashes causes errors when formatting
 as.Date(c("13-02-2012", "13/02/2012"), format = "%d-%m-%Y")
 
-# Also, be careful of misreads
+# Also, be careful of misreadss
+# no specified formatting
 as.Date("13-02-2012")
 
-# Note that this function does not retain datetime information
+# Note that this function does not retain datetime information - the time will not be in the output
 as.Date("2025-02-01 15:35:20")
+
+#is recommended to use the 24 hour clock
 
 ```
 
 For these more detailed date times, we need a different object. The `POSIX*` (**P**ortable **O**perating **S**ystem **I**nterface) object encodes this information. There are two main types: `POSIXlt` and `POSIXct`— local time and calender time, respectively. They differ in how they store datetimes, `POSIXct` tends to work well with data frames while `POSIXlt` is very efficient in memory storage (as a list).
 
 ```{r}
+# these functions preseve the times in the output
 cal_time <- as.POSIXct("2025-02-01 15:35:20")
 loc_time <- as.POSIXlt("2025-02-01 15:35:20")
 ```
@@ -145,13 +156,13 @@ A)  Modify the enclosed character strings to a proper (unambiguous) date or date
 ```{r}
 # YOUR CODE HERE
 
-"February-26-2026"
+as.Date("February-26-2026", format = "%B-%d-%Y")
 
-"Jul/29/01"
+as.Date("Jul/29/01", format = "%b/%d/%y")
 
-"Dec-9-95"
+as.Date("Dec-9-95", format ="%b-%d-%y")
 
-"December/4/13 19:11:31"
+as.POSIXct("December/4/13 19:11:31", format = "%B/%d/%y %H: %M: %S")
 
 "December-19-10 9:30:49pm"
 
@@ -163,12 +174,19 @@ Let's check a few more formats and important features.
 # Example to display in AM/PM
 ex_datetime <- as.POSIXct("December-19-10 9:30:49pm", format = "%B-%d-%y %I:%M:%S%p")
 
+ex_datetime
+
+#formatting previously defined date without retyping whole command
 format(ex_datetime, format = "%B-%d-%y %I:%M:%S%p")
 
+#gives a list of time zones options > OlsonNames()
+
 ?timezones
+
 # Example to display timezones
 ex_tz <- as.POSIXct("December-19-10 09:30:49", format = "%B-%d-%y %H:%M:%S", tz = "UTC")
 
+# checking the time zone of the ex_tz date
 tz(ex_tz)
 
 with_tz(ex_tz,"Japan")
@@ -194,6 +212,7 @@ Load in the `flights` data, recording NYC departure flight metadata from 2013.
 ```{r}
 flights <- flights %>% 
   select(year:minute)
+#selecting the columns from "year" to "minute" in the dataset
 ```
 
 We can use `lubridate` to create a column `datetime` using the `make_datetime` function which takes arguments from years to seconds (we only have to minutes).
@@ -226,6 +245,8 @@ flights_calendar %>%
     fill = "Flights",
     title = "NYC departures in 2013"
   )
+
+#y axis is day of the week, x is week of the year, coloured by number of flights
 ```
 
 `Lubridate` can also extra datetime information using various functions from `year` to `second`. We will use them below.
@@ -247,19 +268,38 @@ D)  Create an object called `Bedford_Date` by combining the `year`, `month`, and
 
 ```{r}
 # YOUR CODE HERE
+Bedford_ts$Date <- as.Date(Bedford_ts$Date)
 
+Bedford_ts$Year <- year(Bedford_ts$Date)
+Bedford_ts$Month <- month(Bedford_ts$Date)
+Bedford_ts$Day <- day(Bedford_ts$Date)
+
+#we can call these built in vectors (month.abb, letters, etc)
+Bedford_ts$Month_name <- month.name[Bedford_ts$Month]
+
+#make a new date object from the broken down components: year, month, day 
+Bedford_Date = as.Date(make_datetime(year = Bedford_ts$Year,
+                                     month = Bedford_ts$Month,
+                                     day = Bedford_ts$Day))
+#prove(test) it is equal to Bedford_ts$Date 
+all(Bedford_Date == Bedford_ts$Date)
+  
+  
 ```
 
 ### Visualizing dates and labels
 
 ```{r}
 # Microbial richness
+# mutating the month names into a factor that is ordered by calendar year, feed into ggplot
 r <- Bedford_ts %>% 
   mutate(Month_name = factor(Month_name, levels = month.abb)) %>% 
   ggplot(aes(x = Date, y = Richness, color = Month_name))+
   geom_point()+
   theme_minimal(12) +
   scale_x_date(date_minor_breaks = "2 month", date_labels = "%Y")
+#scale says that we want breaks between months and the year labels in the 4 digit format 
+
 
 #Temperature
 t <- Bedford_ts %>% 
