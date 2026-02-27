@@ -75,6 +75,7 @@ C)  Summarize microbial richness (median) by each year and each month, then plot
 
 ```{r}
 library(tidyverse)
+library(dplyr)
 
 Bedford_ts <- read.csv("../Data/BedfordBasin_ts.csv") %>%
   mutate(Year = year(Date),
@@ -90,8 +91,13 @@ Bedford_ts$month_full <- month.name[Bedford_ts$Month]
 
 
 # C)
-###Look at Time Math section of the exercise 
-  
+Bedford_ts$month_full <- factor(Bedford_ts$month_full, levels=month.name)
+
+Bedford_ts %>% 
+  group_by(Year, month_full) %>%
+  summarize(Median_Richness = median(Richness)) %>% 
+  ggplot(aes(x = month_full, y = Median_Richness, color = Year))+
+  geom_point()
 
 
 ```
@@ -117,11 +123,14 @@ min <- 15:44
 sec <- 4:33
 
 # A)
-
+library(lubridate)
+combined_datetime <- make_datetime(year, month, day, hour, min, sec) 
 
 # B)
+combined_datetime_stock <- with_tz(combined_datetime, tz = "Europe/Stockholm")
 
 # C)
+combined_datetime_NS <- with_tz(combined_datetime, tz = "Canada/Atlantic")
 
 ```
 :::
@@ -143,9 +152,20 @@ dates <- c("1974-01-01", "1981-09-04", "1993-05-18", "2004-12-11", "2015-09-14",
 # YOUR CODE HERE
 # A)
 
+dates_format <- as.Date(dates, format = "%Y-%m-%d")
+
 # B)
 
+diff1 <- dates_format[2] - dates_format[1]
+diff2 <- dates_format[3] - dates_format[2]
+diff3 <- dates_format[4] - dates_format[3]
+diff4 <- dates_format[5] - dates_format[4]
+diff5 <-dates_format[6] - dates_format[5]
+dfftime_v1 <- c(diff1, diff2, diff3, diff4, diff5)
+
 # C)
+#only removing the dates AFTER sep 14, 2015
+pre_Einstein <- dates_format[1:5]
 
 ```
 :::
@@ -162,7 +182,15 @@ B)  Create a `ggplot` object called `Richness_weekly` which plots raw richness (
 ```{r}
 # YOUR CODE HERE
 # A)
+as.Date(Bedford_ts$Date)
+Bedford_ts$weeks <- as.Date(Bedford_t$weeks)
+ Bedford_ts_weekly <- Bedford_ts %>%
+  mutate(weeks = floor_date(Date, unit = "week")) %>%
+  arrange(weeks)
 
+
+  Bedford_ts[order(Bedford_ts$week_start_date), ]
+#weekly_median = tapply(Bedford_ts$Richness, Bedford_ts$weeks, median)
 
 # B)
 
