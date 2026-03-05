@@ -26,7 +26,7 @@ After completing this lab, you will:
 
 ```{r}
 packages <- c("tidyverse", "sf", "terra", "rnaturalearth", "sdmpredictors", "oce")
-
+##oce is for pretty color palletes
 
 # Install packages not yet installed
 installed_packages <- packages %in% installed.packages()
@@ -142,12 +142,16 @@ Sometimes rasters are more precise than we need to quickly plot or analyze. We c
 
 ```{r}
 ?aggregate
+plot(aggregate(bathy, fact = 50))
+#fact is how much coarser we want the raster to become
+# more coarse means larger cell sizes and lower resolution
 ```
 
 We can convert a raster to a data frame and preserve positional information.
 
 ```{r}
 terra::as.data.frame(bathy, xy = TRUE, na.rm = FALSE)
+#xy is the positional info 
 ```
 
 #### Stacking raster data
@@ -158,10 +162,11 @@ Rasters are packed with information. So far we have only showed one layer (eleva
 
 ```{r}
 rast_stack <- rast(load_layers(c("WC_bio1", "WC_bio5", "WC_bio6", "WC_bio15")))
+# WC_bio5 etc are the layer names 
 
 rast_stack
 
-# We can use this to modify layer names too.
+# We can use this to modify layer names too. they are just a vector of character strings
 names(rast_stack)
 
 plot(rast_stack, 
@@ -221,6 +226,7 @@ sf_use_s2(FALSE)
 # Load polygon data
 Ecoregions_shelf_seas <- read_sf("../Data/MEOW/", 
                                  layer = "meow_ecos")
+#meow_ecos is the prefix of all the layers that we want
 
 class(Ecoregions_shelf_seas)
 
@@ -251,6 +257,7 @@ ScotianShelf <- Ecoregions_shelf_seas %>%
   filter(ECOREGION == "Scotian Shelf")
 
 Scotia <- crop(bathy, ScotianShelf)
+#crops the bathy to scotian shelf 
 
 plot(Scotia, 
      col = oce.colorsGebco(30)[1:20],
@@ -263,11 +270,14 @@ The polygon extents (xmin, xmax, ymin, ymax) are taken from `crop`. There is an 
 ```{r}
 
 Scotia <- mask(crop(bathy, ScotianShelf), ScotianShelf)
+#instead of plotting to rectangular extent, we mask it to an extent we want to observe
 
 plot(Scotia, 
      col = oce.colorsGebco(30)[1:20])
 
 # Instead of using these breaks to define the coastline, we can also index all values below zero
+Scotia[Scotia <= 0] <- NA
+
 ```
 
 We can treat `sf` data frames like any other, filtering rows, subsetting columns, summarizing values, or creating new columns. Let's load other vector data (coastlines) from `rnaturalearth` to combine with ecoregions and give some context.
@@ -283,7 +293,10 @@ Ecoregions_shelf_seas_NW <- Ecoregions_shelf_seas %>%
            )
 
 # Coastline data 
+install.packages("rnaturalearthdata")
 coastline <- ne_countries(scale = "Medium") 
+#ne_countries is a function of rnaturalearthdata
+
 
 # Similar to `crop` in terra, but distinct from each other
 ?st_intersection
@@ -293,9 +306,9 @@ coastline <- ne_countries(scale = "Medium")
 
 # Let's crop the coastline to the rectangular extent (bounding box) of the Ecoregions
 # using the same pipe operator
-coastline_NW <- coastline %>% 
+coastline_NW <- coastline %>% #piping in crop step
   st_crop(st_bbox(Ecoregions_shelf_seas_NW))
-
+#crop it to the bounding box of our polygon
 
 # Let's combine these into a more refined ggplot
 # We will first present ecoregions so they don't overlay coastlines
@@ -332,12 +345,14 @@ A)  Use the `ggplot` and `sf` grammar to explore the groundfish survey points wi
 ```{r}
 # YOUR CODE HERE
 ggplot(Ecoregions_shelf_seas_NW)+
-  # We're calling the sf layer for data above
+  # We're calling the sf layer for data above so its repped spatially
   geom_sf(aes(fill = ECOREGION), alpha = 0.25)+
+  #adding more spatial layers 
   geom_sf(data = trawls_sf, color = "black", alpha = 0.1, size = 0.1)+
   # The extra geom layer overlaying coastlines
   geom_sf(data = coastline_NW, fill = "grey80", linewidth = 0.1)+
   theme_minimal(10)
+# the order of the layers in ggplot wil control the layers on the plot, plots from first(bottom) to last(top)
 
 ```
 
@@ -345,6 +360,7 @@ Let's use the intersection of polygons and points to crop and filter.
 
 ```{r}
 # Using the points to index the polygons
+# filter ecoregions for the whole nw atlantic and use st_intersects to filter for where the overlap between Ecoregions_shelf_seas_NW, trawls_sf is greater than 0
 Ecoregions_NW_pts <- Ecoregions_shelf_seas_NW[lengths(st_intersects(Ecoregions_shelf_seas_NW, trawls_sf)) > 0, ]
 
 ggplot(Ecoregions_NW_pts)+
@@ -356,6 +372,7 @@ ggplot(Ecoregions_NW_pts)+
   theme_minimal(10)
 
 # For spatial points, the indexing way
+#here we take the same steps as bove but for points instead of polygons
 trawls_sf_pts <- trawls_sf[lengths(st_intersects(trawls_sf, Ecoregions_NW_pts)) > 0, ]
 
 # The dplyr way
@@ -407,11 +424,13 @@ ext(bathy_reproj)
 
 # Can two rasters with different CRS be stacked?
 c(bathy_reproj, bathy)
+#one was projected, so they cant be stacked
 ```
 
 Now let's work with `sf` data.
 
 ```{r}
+#transforming sf data
 Ecoregions_NW_reproj <- Ecoregions_shelf_seas_NW %>% 
   st_transform("EPSG:2954")
 
@@ -424,6 +443,7 @@ ggplot(Ecoregions_shelf_seas_NW, aes(fill = ECOREGION))+
   geom_sf()
 
 # Notice the difference?
+#projected version has curved lines, the non projected version does not
 ```
 
 ## Task 3:
