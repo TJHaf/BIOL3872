@@ -102,7 +102,7 @@ C)  Plot `trop_atl` using `ggplot`, remove the legend, and fill the Ecoregions b
 ```{r}
 # YOUR CODE HERE
 # A)
-Ecoregions <- read_sf("Data/MEOW/", 
+Ecoregions <- read_sf("/Users/tabi/Downloads/4th Year/Biologists Toolkit/BIOL3872/Lab 7/Data/MEOW", 
                                  layer = "meow_ecos")
 
 # B)
@@ -167,10 +167,11 @@ D)  Plot `trawls_sf` points, `Ecoregions_hake`, and `coastline_hake` using `ggpl
 ```{r}
 # YOUR CODE HERE
 # A)
-
+groundfish <- read.csv("/Users/tabi/Downloads/4th Year/Biologists Toolkit/BIOL3872/Lab 7/Data/Groundfish_surveys.csv")
 
 # B)
-
+trawls_sf <- groundfish %>% filter(accepted_name == "Merluccius bilinearis") %>% 
+  st_as_sf(coords = c("longitude", "latitude"))
 
 # C)
 
