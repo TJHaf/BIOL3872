@@ -78,10 +78,12 @@ values(rast_gauss) <- exp(-((coords$x - x0)^4 + (coords$y - y0)^2) / (2 * sigma^
 rast_stack <- c(rast, rast_gauss)
 
 # B) 
-
+names(rast_stack)
+new_rast_names <- c("Random", "Gaussian")
+names(rast_stack) <- new_rast_names
 
 # C)
-
+mean_rast <- ((rast_stack[1] + rast_stack[2]) /2)
 
 ```
 :::
