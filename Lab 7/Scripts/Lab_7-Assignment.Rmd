@@ -171,16 +171,25 @@ groundfish <- read.csv("/Users/tabi/Downloads/4th Year/Biologists Toolkit/BIOL38
 
 # B)
 trawls_sf <- groundfish %>% filter(accepted_name == "Merluccius bilinearis") %>% 
-  st_as_sf(coords = c("longitude", "latitude"))
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
 
 # C)
+Ecoregions_hake <- Ecoregions[lengths(st_intersects(Ecoregions, trawls_sf)) > 0, ]
 
-
+coastline_hake <- coastline %>% 
+  st_transform(st_crs(trawls_sf)) %>% 
+  st_crop(trawls_sf)
+  
 # D)
-
+NW_trawls_p <- ggplot(Ecoregions_hake)+
+  geom_sf(fill = "transparent")+
+  geom_sf(data = coastline_hake, fill = "grey20")+
+  geom_sf(data = trawls_sf, colour = "purple", alpha = 0.25)+
+  theme_minimal()
 ```
 :::
 
+\
 \
 
 ::: {style="background-color: #44AA99; padding: padding: 5px; border-radius: 2px;"}
@@ -195,13 +204,15 @@ C)  Write a simple `for()` loop which, across layer `i` in `rast_stack_hake` (`1
 ```{r}
 # YOUR CODE HERE
 # A)
-
+rast_stack <- rast(load_layers(c("BO_sstmean", "BO22_tempmax_bdmax", "BO2_curvelmean_ss")))
 
 # B)
-
+rast_stack_hake <- mask(crop(rast_stack, Ecoregions_hake), Ecoregions_hake)
 
 # C)
-
+#for (1:nlyr(raster)) { 
+  
+#}
 ```
 :::
 
