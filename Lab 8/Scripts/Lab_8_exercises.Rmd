@@ -506,7 +506,7 @@ sst_NW_agg <- aggregate(sst_NW, fact = 5)
 # This increases an existing rasters resolution. For continuous data (where each new cell will have more than one neighbouring cell), bilinear interpolation is simple and can be effective.
 
 # * Note what the "fact" arguement can take...
-# using bilinear averaging we are making the reoslution finer by 20 times
+# using bilinear averaging we are making the resolution finer by 20 times
 # averaging the info we do know, and using it to fill the gaos 
 sst_fine <- disagg(sst_NW_agg, fact = 20, method = "bilinear") 
 
