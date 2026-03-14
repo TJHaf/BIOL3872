@@ -122,8 +122,6 @@ area_spherical <- canada %>%
   units::set_units("km^2")
 
 #C)
-#units::set_units(st_area(coastline_proj) - st_area(coastline), "km^2")
-
 coastline_diff <- units::set_units((area_projected - area_spherical), "km^2")
 ```
 :::
@@ -191,12 +189,10 @@ grid_proj <- st_make_grid(trawls_proj, cellsize = c(2e1, 2e1))
 
 # D)
 # CODE TO FIX
-if {ncell(grid_unproj) >> ncell(grid_proj)}
-{
-  answer <- paste0("The geographic version has ", as.character(ncell(grid_unproj) - count(grid_proj)), " more grid cells")
-} else if
-  {
- answer <- paste0("The projected version has ", as.character(ncell(grid_proj) - ncell(grid_unproj)), " more grid cells")
+if (ncell(grid_unproj) > ncell(grid_proj)) {
+ answer <- paste("The geographic version has ", as.character(ncell(grid_unproj) - ncell(grid_proj)), " more grid cells")
+} else {
+ answer <- paste("The projected version has ", as.character(ncell(grid_proj) - ncell(grid_unproj)), " more grid cells")
 }
 
 ```
@@ -214,7 +210,10 @@ B)  Write each layer of `marine_stack_NW_fine_proj` to a `GeoTIFF` file. Use `pa
 ```{r}
 # YOUR CODE HERE
 # A)
-
+names(marine_stack_NW_fine_proj)[1] <- "b_temp"
+names(marine_stack_NW_fine_proj)[2] <- "b_nitrate"
+names(marine_stack_NW_fine_proj)[3] <- "b_phosphate"
+names(marine_stack_NW_fine_proj)[4] <- "b_dissox"
 
 # B)
 
