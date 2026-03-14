@@ -114,15 +114,17 @@ canada_proj <- canada %>%
   st_transform("EPSG:2954")
 
 area_projected <- canada_proj %>% 
-  st_area(canada_proj) %>% 
+  st_area() %>% 
   units::set_units("km^2")
   
 area_spherical <- canada %>% 
-  st_area(canada) %>% 
+  st_area() %>% 
   units::set_units("km^2")
+
 #C)
+#units::set_units(st_area(coastline_proj) - st_area(coastline), "km^2")
 
-
+coastline_diff <- units::set_units((area_projected - area_spherical), "km^2")
 ```
 :::
 
@@ -176,21 +178,26 @@ D)  Fix the **explicit** `if`/`else` statement which tests which grid version ha
 # YOUR CODE HERE
 
 # A)
-
+ext_unproj <- st_bbox(trawls)
 
 # B)
-
+trawls_proj <- st_transform(trawls, "EPSG:2954")
+ext_proj <- st_bbox(trawls_proj)
 
 # C)
+grid_unproj <- st_make_grid(trawls, cellsize = c(0.25, 0.25))
 
+grid_proj <- st_make_grid(trawls_proj, cellsize = c(2e1, 2e1))
 
 # D)
 # CODE TO FIX
-#if {ncell(grid_unproj) >> ncell(grid_proj)}{
-#  answer <- paste0("The geographic version has ", as.numeric(ncell(grid_unproj) - #count(grid_proj)), " more grid cells")
-#} else {
-#  paste0("The projected version has ", as.charcter(ncell(grid_proj) - #ncell(grid_unproj)), " more grid cells")
-#}
+if {ncell(grid_unproj) >> ncell(grid_proj)}
+{
+  answer <- paste0("The geographic version has ", as.character(ncell(grid_unproj) - count(grid_proj)), " more grid cells")
+} else if
+  {
+ answer <- paste0("The projected version has ", as.character(ncell(grid_proj) - ncell(grid_unproj)), " more grid cells")
+}
 
 ```
 :::
