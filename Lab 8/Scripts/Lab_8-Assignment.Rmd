@@ -185,7 +185,7 @@ ext_proj <- st_bbox(trawls_proj)
 # C)
 grid_unproj <- st_make_grid(trawls, cellsize = c(0.25, 0.25))
 
-grid_proj <- st_make_grid(trawls_proj, cellsize = c(2e1, 2e1))
+grid_proj <- st_make_grid(trawls_proj, cellsize = c(2e7))
 
 # D)
 # CODE TO FIX
@@ -216,6 +216,11 @@ names(marine_stack_NW_fine_proj)[3] <- "b_phosphate"
 names(marine_stack_NW_fine_proj)[4] <- "b_dissox"
 
 # B)
+
+terra::writeRaster(marine_stack_NW_fine_proj, paste0("~/Downloads/4th Year/Biologists Toolkit/BIOL3872/Lab 8/Data", names(marine_stack_NW_fine_proj), "_shelf", ".tif"), overwrite = TRUE)
+
+
+
 
 ```
 :::
