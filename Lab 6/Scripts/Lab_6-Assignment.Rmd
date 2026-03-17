@@ -110,9 +110,11 @@ Bedford_ts %>%
 
 A)  Take the sequences of `day`, `month`, `year`, `hour`, `min`, and `secs` and combine them into a single vector of unambiguous datetimes named `combined_datetime`.
 
-B)  Search `OlsonNames` to find the time zone for Stockholm (Sweden) and assign this to datetimes in a new object called `combined_datetime_stock`.
+B)  Search
 
-C)  Convert these times to the Atlantic Canada timezone (AST) and store named these datetimes in `combined_datetime_NS`.
+C)   to find the time zone for Stockholm (Sweden) and assign this to datetimes in a new object called `combined_datetime_stock`.
+
+D)  Convert these times to the Atlantic Canada timezone (AST) and store named these datetimes in `combined_datetime_NS`.
 
 ```{r}
 day <- seq(1,30, 1)

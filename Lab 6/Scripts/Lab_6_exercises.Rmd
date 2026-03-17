@@ -272,7 +272,7 @@ Bedford_ts$Date <- as.Date(Bedford_ts$Date)
 
 Bedford_ts$Year <- year(Bedford_ts$Date)
 Bedford_ts$Month <- month(Bedford_ts$Date)
-Bedford_ts$Day <- day(Bedford_ts$Date)
+Bedford_ts$Day <- day(Bedford_ts$Date) 
 
 #we can call these built in vectors (month.abb, letters, etc)
 Bedford_ts$Month_name <- month.name[Bedford_ts$Month]
