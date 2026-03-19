@@ -112,7 +112,7 @@ A)  Take the sequences of `day`, `month`, `year`, `hour`, `min`, and `secs` and 
 
 B)  Search
 
-C)   to find the time zone for Stockholm (Sweden) and assign this to datetimes in a new object called `combined_datetime_stock`.
+C)  to find the time zone for Stockholm (Sweden) and assign this to datetimes in a new object called `combined_datetime_stock`.
 
 D)  Convert these times to the Atlantic Canada timezone (AST) and store named these datetimes in `combined_datetime_NS`.
 

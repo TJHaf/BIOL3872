@@ -106,6 +106,7 @@ Ecoregions <- read_sf("/Users/tabi/Downloads/4th Year/Biologists Toolkit/BIOL387
                                  layer = "meow_ecos")
 
 # B)
+
 trop_atl <- Ecoregions %>% 
   filter(REALM == "Tropical Atlantic") %>% 
   st_transform("EPSG:3857")
@@ -210,9 +211,11 @@ rast_stack <- rast(load_layers(c("BO_sstmean", "BO22_tempmax_bdmax", "BO2_curvel
 rast_stack_hake <- mask(crop(rast_stack, Ecoregions_hake), Ecoregions_hake)
 
 # C)
-#for (1:nlyr(raster)) { 
+for (1:nlyr(raster)) 
+  { 
+  log(rast_stack_hake)
   
-#}
+}
 ```
 :::
 

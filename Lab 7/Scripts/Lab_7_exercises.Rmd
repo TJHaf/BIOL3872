@@ -123,6 +123,7 @@ summary(bathy)
 
 # plot the distribution of that layers values
 hist(bathy)
+
 ```
 
 #### Transforming raster data
