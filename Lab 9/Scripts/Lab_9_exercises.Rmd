@@ -113,6 +113,7 @@ You can name chunks and set options for how the chunk will render when knit:
 shark_weight_kg <- 2000
 shark_weight_kg * 2.2  # Convert to pounds
 
+##eval = false hides the code
 ```
 
 ```{r eval-false-example, eval=FALSE}
@@ -161,6 +162,18 @@ Move to source view and practice by writing the following in the space below.
 4.  A simple 2-column table
 
 *Add your practice content here:*
+
+### Tabitha
+
+**my name is** *tabitha*
+
+-   cuttlefish
+-   jellyfish
+-   wolffish
+
+| Fish 1 | Fish 2 |
+|--------|--------|
+| blue   | orange |
 
 ------------------------------------------------------------------------
 
@@ -249,6 +262,7 @@ shark_summary <- sharks %>%
 #kable turns a dataframe into a nicely formatted table, much better than the raw output of shark_summary
 knitr::kable(shark_summary, 
              digits = 1)
+## same as summary() but looks nicer, digits = 1 means that its rounding the numbers in the output
 ```
 
 ------------------------------------------------------------------------
