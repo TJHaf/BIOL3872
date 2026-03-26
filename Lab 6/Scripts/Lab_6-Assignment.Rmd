@@ -184,18 +184,31 @@ B)  Create a `ggplot` object called `Richness_weekly` which plots raw richness (
 ```{r}
 # YOUR CODE HERE
 # A)
-as.Date(Bedford_ts$Date)
-Bedford_ts$weeks <- as.Date(Bedford_t$weeks)
- Bedford_ts_weekly <- Bedford_ts %>%
-  mutate(weeks = floor_date(Date, unit = "week")) %>%
-  arrange(weeks)
+#Bedford_ts$weeks <- as.Date(Bedford_t$weeks)
+ #Bedford_ts_weekly <- Bedford_ts %>%
+  #mutate(weeks = floor_date(Date, unit = "week")) %>%
+  #arrange(weeks)
 
 
-  Bedford_ts[order(Bedford_ts$week_start_date), ]
+ # Bedford_ts[order(Bedford_ts$week_start_date), ]
 #weekly_median = tapply(Bedford_ts$Richness, Bedford_ts$weeks, median)
+
+Bedford_ts$weeks <- week(Bedford_ts$Date)
+weeks <- unique(Bedford_ts$weeks)
+median = NULL
+empty_list <- list()
+
+weekly_median = tapply(Bedford_ts$Richness, Bedford_ts$weeks, mean)
+
+weekly_median <- data.frame(Richness = as.vector(weekly_median), weeks= as.numeric(names(weekly_median)))
+
 
 # B)
 
+Richness_weekly <- Bedford_ts %>% 
+  ggplot(aes(x = weeks, y = Richness, fill = month.name[Date]))+
+  geom_point()+
+  geom_point(data = weekly_median, aes(x = weeks, y = weekly_median))
 
 
 ```
