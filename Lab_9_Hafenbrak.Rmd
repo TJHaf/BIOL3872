@@ -1,12 +1,15 @@
 ---
 title: "Basking Shark Report"
 date: "2026-03-26"
-output: 
+output:
+  pdf_document:
+    toc: true
   html_document:
     toc: true
     toc_float: true
+    self_contained: true
     theme: cerulean
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -199,7 +202,7 @@ dist_m <- sum(st_distance(my_sf$geometry))
 dist_km <- set_units(dist_m, km)
 ```
 
-# Brooklyn's Journey Summary Stats
+# Brooklyn's Journey Summary 
 
 |                         |                     |
 |-------------------------|---------------------|
@@ -207,7 +210,7 @@ dist_km <- set_units(dist_m, km)
 | Ending Location         | (-68.3400, 42.1050) |
 | Latitudinal Change      | 12.7214             |
 | Total Distance Traveled | 2692393km           |
-| Maximum Depth           | 1080                |
+| Maximum Depth           | 1.08km              |
 
 **Wow!!!**
 From Oct 11, 2008 to Oct 1, 2009, Brooklyn traveled over 2 million km! That is over 4 million times the height of the CN Tower. To fuel her mission, she likely had to eat a lot of phytoplankton. On average, basking sharks filter around 2000 tons of water each day, so over the course of Brooklyn's journey, she could have filtered over 710000 tons of water. 
